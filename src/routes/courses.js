@@ -1,0 +1,20 @@
+const CoursesController = require('../app/controllers/CoursesController')
+const MeController = require('../app/controllers/MeController')
+const express = require('express')
+const router = express.Router()
+
+router.get('/create', CoursesController.create)
+router.post('/store', CoursesController.store)
+router.put('/updated', MeController.updated)
+router.get('/update', CoursesController.update)
+router.get('/restore', MeController.restore)
+router.get('/me/trash', MeController.trash)
+router.get('/me/manage', MeController.manage)
+router.get('/me/handletrash', MeController.handleTrash)
+router.delete('/me/deletemany', MeController.deleteMany)
+router.delete('/me/trash/:id', MeController.destroy)
+router.delete('/me/:id', MeController.delete)
+router.get('/:slug', CoursesController.show)
+router.get('/', CoursesController.index)
+
+module.exports = router

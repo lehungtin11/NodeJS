@@ -1,0 +1,70 @@
+@import 'variables';
+
+.avatar-user {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.block {
+    position: relative;
+    transition: box-shadow, padding-left, padding-right ease .35s;
+}
+
+.block:hover {
+    transition: box-shadow ease .35s;
+    box-shadow: #000 0px 2px 8px;
+    border-radius: 3px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.block:hover .card {
+    border: none;
+}
+
+.wrap-button a{
+    display: none;
+}
+
+.block:hover .wrap-button a{
+    display: block;
+}
+
+.block:hover .play-video .card-img-top {
+    display: none;
+}
+
+.block:hover .iframe {
+    display: block;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.block:hover.block::after {
+    content: 'Tiếp tục di chuột để phát';
+    z-index: 999;
+    position: absolute;
+    top: 44%;
+    right: 8%;
+    font-size: 12px;
+    padding: 4px 8px;
+    background-color: #000;
+    color: #fff;
+    opacity: .65;
+    border-radius: 3px;
+}
+
+.iframe {
+    display: none;
+}
+
+.block a .card-title {
+    color: #000
+}
+
+.block a {
+    text-decoration: none;
+}

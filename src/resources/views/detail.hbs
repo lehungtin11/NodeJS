@@ -1,0 +1,21 @@
+<div class="mt-4">
+    <div class="row">
+        {{#with data}}
+            <div class="col-lg-3">
+                <h2>{{name}}</h2>
+                <p>{{desc}}</p>
+                <a href="/courses" class="btn btn-info px-5">Back</a>
+            </div>
+            <div class="col-lg-9">
+                <iframe
+                    width="700"
+                    height="350"
+                    src="https://www.youtube.com/embed/{{videoId}}?autoplay=1&modestbranding=1&rel=0"
+                    title="{{name}}"
+                    frameborder="0"
+                    allow="autoplay" allowfullscreen>
+                </iframe>
+            </div>  
+        {{/with}}
+    </div>
+</div>

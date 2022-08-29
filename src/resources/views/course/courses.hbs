@@ -1,0 +1,47 @@
+
+    <div class="row">
+        {{#each data}}
+            <div class="col-lg-3 block">
+                <div style="background-color: #f9f9f9" class="card mt-4">
+                    <a class="play-video" href="/courses/{{this.slug}}">
+                        <img src="https://i.ytimg.com/vi/{{this.videoId}}/maxresdefault.jpg" class="card-img-top" alt="{{this.name}}">
+                        <iframe
+                        id="{{videoId}}"
+                        class="iframe"
+                        title="{{name}}"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                    </a>
+                    <div class="card-body">
+                        <a href="/courses/{{this.slug}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
+                        <p class="card-text">{{this.desc}}</p>
+                        <div class="d-grid wrap-button"><a href="/courses/{{this.slug}}" class="btn btn-primary">Watch</a></div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const iFrames = document.querySelectorAll('.iframe');
+        const wrapper = document.querySelectorAll('.block');
+        var iframeQuery;
+        wrapper.forEach(wrap => {
+            wrap.addEventListener('mouseenter', e => {
+                iframeQuery = e.target.querySelector('.iframe')
+                iframeId = iframeQuery.id;
+                iframeQuery.src=`https://www.youtube.com/embed/${iframeId}?autoplay=1&fs=0&modestbranding=1&rel=0&start=1`
+                iframeQuery.allow="autoplay"
+            })
+
+            wrap.addEventListener('mouseleave', () => {
+                iframeQuery.src=`https://www.youtube.com/embed/`
+            })
+            
+        })
+    })
+    </script>
