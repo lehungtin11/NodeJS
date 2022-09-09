@@ -54,6 +54,38 @@
                 Action
               </button>
             </div>
+            {{!-- Pagination --}}
+            <nav aria-label="Page navigation example d-flex justify-content-center align-items-center">
+                  <ul class="pagination justify-content-center">
+                      {{#if (handlePagination (sum currentPage -1) totalPage)}}
+                    <li class="page-item">
+                      <a href="/courses/me/trash?page=1" class="page-link">First</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="/courses/me/trash?page={{handlePagination (sum currentPage -1) totalPage}}">{{handlePagination (sum currentPage -1) totalPage}}</a>
+                    </li>
+                      {{else}}
+                    <li class="page-item disabled">
+                      <a class="page-link" href="/courses/me/trash">First</a>
+                    </li>
+                      {{/if}}
+                    <li class="page-item active">
+                      <a class="page-link" href="#">{{currentPage}}</a>
+                    </li>
+                    {{#if (handlePagination (sum currentPage 1) totalPage)}}
+                    <li class="page-item">
+                      <a class="page-link" href="/courses/me/trash?page={{handlePagination (sum currentPage 1) totalPage}}">{{handlePagination (sum currentPage 1) totalPage}}</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="/courses/me/trash?page={{totalPage}}">Last</a>
+                    </li>
+                      {{else}}
+                    <li class="page-item disabled">
+                      <a class="page-link" href="/courses/me/trash">Last</a>
+                    </li>
+                      {{/if}}
+                  </ul>
+                </nav>
   </table>
 </form>
 

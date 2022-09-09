@@ -1,21 +1,138 @@
 <div class="mt-4">
     <div class="row">
-        {{#with data}}
-            <div class="col-lg-3">
-                <h2>{{name}}</h2>
-                <p>{{desc}}</p>
-                <a href="/courses" class="btn btn-info px-5">Back</a>
-            </div>
-            <div class="col-lg-9">
+            {{#with data}}
+            <div class="col-lg-8">
                 <iframe
                     width="700"
                     height="350"
-                    src="https://www.youtube.com/embed/{{videoId}}?autoplay=1&modestbranding=1&rel=0"
+                    src="https://www.youtube.com/embed/{{videoId}}?autoplay=0&modestbranding=1&rel=0"
                     title="{{name}}"
                     frameborder="0"
                     allow="autoplay" allowfullscreen>
                 </iframe>
-            </div>  
-        {{/with}}
+                <h2 class="mt-2">{{name}}</h2>
+                <p>{{desc}}</p>
+                {{/with}}
+                <hr>
+                
+                {{!-- Comment block --}}
+                <div class="comment">
+                    <p style="font-weight: 400">{{countComment}} bình luận</p>
+
+                    {{!-- Input comment --}}
+                    <div style="margin-bottom: 16px" class="d-flex align-items-center">
+                        <span class="avatar me-2 mb-2">
+                            <img
+                            {{#if avatar}}
+                                src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                                alt="{{username}}"
+                            {{else}}
+                                src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                            {{/if}}
+                            />
+                        </span>
+                                {{#with data}}
+                        <form style="width: 100%" method="POST" action="comment/{{name}}">
+                            <div class="comment-block-input">
+                                <input type="hidden" name="slug" value="{{name}}">
+                                {{/with}}
+                                <input type="hidden" name="username" value="{{username}}">
+                                <input type="hidden" name="reply" value="{{username}}">
+                                <input
+                                    type="hidden"
+                                    name="avatar"
+                                    value={{#if avatar}}
+                                        '{{avatar}}'
+                                    {{else}}
+                                        'AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj'
+                                    {{/if}}
+                                >
+                                <div class="d-flex flex-wrap justify-content-end">
+                                    <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Viết bình luận..."></textarea>
+                                    <button type="submit" class="comment-block-input__submit-input mt-2" id="submit">BÌNH LUẬN</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                
+                        {{!-- Comments --}}
+                        {{#each comment}}
+                            <div style="margin-bottom: 16px;" class="d-flex align-items-center">
+                                <span class="avatar me-2 mb-2">
+                                    <img
+                                        src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
+                                        alt="{{this.username}}"
+                                    />
+                                </span>
+                                <div class="comment-block-input">
+                                    <span>{{this.username}}</span>
+                                    <li>{{this.content}}</li>
+                                    <span id="reply-btn" class="reply-btn">PHẢN HỒI</span>
+                    
+                                    {{!-- Reply input comment --}}
+                                    <div class="hide">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Phản hồi..."></textarea>
+                                            <button type="submit" class="comment-block-input__submit-input mt-2" id="submit">PHẢN HỒI</button>
+                                        </div>
+                                    </div>
+                    
+                                    <br>
+                                    <span id="total-reply" style="color:dodgerblue; cursor: pointer">
+                                        11 câu trả lời
+                                            {{!-- Reply comment --}}
+                                        <ul class="hide reply-block">
+                                            <div style="margin-bottom: 16px;" class="d-flex align-items-center">
+                                                <span class="avatar me-2 mb-2">
+                                                    <img
+                                                    {{#if avatar}}
+                                                        src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                                                        alt="{{username}}"
+                                                    {{else}}
+                                                        src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                                                    {{/if}}
+                                                    />
+                                                </span>
+                                                <div class="comment-block-input">
+                                                    <span>{{username}}</span>
+                                                    <li>Hayyy!!</li>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        {{/each}}
+                </div>
+                {{!-- End col-lg-8 --}}
+            </div>
+
+        {{!-- Back button block --}}
+        <div class="col-lg-4">
+            <hr>
+            <a href="/courses" class="btn btn-info px-5">Back</a>
+        </div>
     </div>
 </div>
+
+
+
+<script>
+        const replyBtns = document.querySelectorAll('span[class="reply-btn"]');
+        const totalReplyBtns = document.querySelectorAll('span[id="total-reply"]');
+        const replyIptBlock = document.querySelectorAll('div[class="hide"]');
+        const replyBlock = document.querySelectorAll('ul[class="hide reply-block"]');
+        
+        totalReplyBtns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                replyBlock[index].classList.toggle('hide')
+            })
+        })
+        
+        replyBtns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                replyIptBlock[index].classList.toggle('hide')
+            })
+        })
+</script>
+

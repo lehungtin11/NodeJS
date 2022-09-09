@@ -55,3 +55,44 @@
 
 .block a {
   text-decoration: none; }
+
+.not-found {
+  font-size: 128px;
+  font-weight: bold;
+  color: #333; }
+
+.pagination a {
+  text-decoration: none; }
+
+.comment .avatar img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px; }
+
+.comment .comment-block-input {
+  width: 100%; }
+  .comment .comment-block-input .comment-block-input__text-input {
+    outline: none;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent; }
+  .comment .comment-block-input .comment-block-input__submit-input {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 4px 8px; }
+  .comment .comment-block-input .reply-btn {
+    cursor: pointer;
+    color: #606060;
+    font-size: 12px;
+    font-weight: bold; }
+  .comment .comment-block-input span {
+    font-weight: 600; }
+  .comment .comment-block-input li {
+    list-style-type: none; }
+  .comment .comment-block-input textarea {
+    resize: none; }
+
+.hide {
+  display: none; }

@@ -1,7 +1,21 @@
     <article>
-        <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/courses/me/manage">My Course</a>
-        <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/courses/create">Create Course</a>
-        <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/">Home</a>
-        <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/news">News</a>
-        <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/courses">Courses</a>
+        {{#if (isAdmin username)}}
+            <p style="font-size: 24px;">You're visit as <span style="color: orange; font-weight: bold">Admin</span></p>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-warning d-flex mt-4" href="/courses/me/manage">Manage Course</a>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-warning d-flex mt-4" href="/courses/create">Create Course</a>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/setting">Account Setting</a>
+            <a style="text-decoration: none; color: white" class="btn-lg px-4 py-3 btn-info d-flex mt-4" href="/blog">Blog</a>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-primary d-flex mt-4" href="/courses">Courses</a>
+        {{else}}
+        {{#if username}}
+            <p style="font-size: 24px;">You're visit as <span style="color: orange; font-weight: bold">USER</span></p>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/setting">Account Setting</a>
+            <a style="text-decoration: none; color: white" class="btn-lg px-4 py-3 btn-info d-flex mt-4" href="/blog">Blog</a>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-primary d-flex mt-4" href="/courses">Courses</a>
+        {{else}}
+            <p style="font-size: 24px;">You're visit as <span style="color: orange; font-weight: bold">GUEST</span></p>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/blog">Blog</a>
+            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/courses">Courses</a>
+        {{/if}}
+        {{/if}}
     </article>

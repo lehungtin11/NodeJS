@@ -1,0 +1,48 @@
+<div class="container" style="width: 500px">
+  <form method="POST" action="/login/submit" class="mt-4">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username" autocomplete="off">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <div class="form-text">
+          Don't have acount?
+          <a href="/register">Register</a>
+      </div>
+    <button type="submit" class="btn btn-primary mt-3">Login</button>
+  </form>
+</div>
+<script>
+    const form = document.forms[0]
+    const userIpt = document.querySelector('input[type="text"]')
+    const passIpt = document.querySelector('input[type="password"]')
+
+    //Stop space action on keyboard
+    addEventListener('keydown', (e) => {
+        if(e.keyCode == '32') {
+            e.preventDefault()
+        }
+    })
+    
+    //Two way binding
+    passIpt.onchange = e => {
+        var trim = e.target.value.trim()
+        passIpt.value = trim
+    }
+    userIpt.onchange = e =>{
+        var trim = e.target.value.trim()
+        userIpt.value = trim
+    }
+
+    //Check submit value if empty
+    form.onsubmit = (e) => {
+        if( userIpt.value == '' || passIpt.value == '') {
+            e.preventDefault()
+            alert('Tài khoản hoặc mật khẩu không được để trống')
+        }
+    }
+
+</script>

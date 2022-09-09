@@ -68,3 +68,60 @@
 .block a {
     text-decoration: none;
 }
+
+.not-found {
+    font-size: 128px;
+    font-weight: bold;
+    color: #333;
+}
+
+.pagination a {
+    text-decoration: none;
+}
+
+// Comment block
+.comment {
+   & .avatar {
+        img {
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+        }
+    }
+    .comment-block-input {
+        width: 100%;
+        .comment-block-input__text-input {
+            outline: none;
+            border: none;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+            background-color: transparent;
+        }
+        .comment-block-input__submit-input {
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+        }
+        .reply-btn {
+            cursor: pointer;
+            color:rgb(96,96,96);
+            font-size: 12px;
+            font-weight: bold;
+        }
+        span {
+            font-weight: 600;
+        }
+        li {
+            list-style-type: none;
+        }
+        textarea {
+            resize: none;
+        }
+    }   
+}
+
+.hide {
+    display: none;
+}
+

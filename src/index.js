@@ -1,19 +1,34 @@
 const express = require('express');
+const app = express();
+const port = 3000;
+const http = require('http');
+const server = http.createServer(app);
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const morgan = require('morgan');
 const hbs = require('express-handlebars');
 const path = require('path');
 const methodOverride = require('method-override')
+const dotenv = require('dotenv');
 
 const route = require('./routes')
 const db = require('./config/db');
-const { Domain } = require('domain');
 
-const app = express();
-const port = 3000;
+
+// ENV config
+dotenv.config();
 
 // for parsing application/json
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true }))
+
+// SESSION
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: true,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/educations' })
+}));
 
 // Http logger
 // app.use(morgan('combined'));
@@ -24,12 +39,28 @@ app.engine('.hbs', hbs.create({
   helpers: {
     sum(a, b) {
       return a + b; 
+    },
+    handlePagination(a, b) {
+      return (
+        // If have 'a' then go next statement
+        // If 'a' gt 0 and 'a' lt 'b' then return a
+        // else return falsy ('')
+          a ? ((a > 0) && (a <= b ? a : '') && a) : ''
+      )
+    },
+    isAdmin(user) {
+      return (
+        // Note to fix this hardcode later
+        ( user == 'Lehungtin11' ) ? true : false
+      )
     }
   }
 }).engine);
+// Use view engine & change view path to 'views' folder
 app.set('view engine', '.hbs');
 app.set("views", path.join(__dirname, "resources","views"));
-app.use(express.static(path.join(__dirname, "public")));
+//Change static path to 'public' folder
+app.use(express.static(path.join(__dirname, "public"))); 
 
 // Overwrite method
 app.use(methodOverride('_method'));
@@ -40,6 +71,6 @@ db.connect();
 // Route
 route(app);
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`)
 })
