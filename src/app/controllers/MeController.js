@@ -1,4 +1,5 @@
 const MyModel = require('../models/course')
+const ToObject = require('../../helpers/toObject')
 
 class MeController {
 
@@ -29,7 +30,7 @@ class MeController {
                 total <= 0 ? page = 1 :'' ;
                 res.render('me/store-course', {
                     deleteCount,
-                    data: data.slice(start,end).map(ren=>ren.toObject()),
+                    data: ToObject.manyData(data.slice(start,end)),
                     totalPage: totalPage,
                     currentPage: page,
                 })
@@ -75,7 +76,7 @@ class MeController {
             if(total <= 0 || page >= 0 && page <= totalPage ) {
                 total <= 0 ? page = 1 :'' ;
                 res.render('me/trash-bin', {
-                    data: data.slice(start,end).map(ren=>ren.toObject()),
+                    data: ToObject.manyData(data.slice(start,end)),
                     username: req.session.username,
                     totalPage: totalPage,
                     currentPage: page,

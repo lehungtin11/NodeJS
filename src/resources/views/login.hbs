@@ -1,24 +1,76 @@
-<div class="container" style="width: 500px">
+<div class="container login-form" style="width: 400px;">
+  <span class="header-form mt-4">SIGN IN</span>
+  <hr>
   <form method="POST" action="/login/submit" class="mt-4">
     <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" name="username" autocomplete="off">
+      <label for="username" class="form-label">
+        <i class="bi bi-person"></i>
+        Username
+      </label>
+      <input type="text" class="form-control" id="username" name="username" autocomplete="off" value="{{preUsername}}">
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" name="password">
+      <label for="password" class="form-label">
+        <i class="bi bi-lock"></i>
+        Password
+      </label>
+      <input type="password" class="form-control" id="password" name="password" value="{{prePassword}}">
+        <span class="visible-password mt-1">
+          <i class="bi bi-eye" onclick="showPw()">
+            Show Password
+          </i>
+          <a style="color: rgb(110, 110, 110)" href="#">Lost your Password?</a>
+        </span>
+      <span style="display: none" id="checkCapsLock" class="alert alert-danger" role="alert">WARNING! Caps lock is ON.</span>
     </div>
     <div class="form-text">
-          Don't have acount?
+          Don't have account?
           <a href="/register">Register</a>
-      </div>
-    <button type="submit" class="btn btn-primary mt-3">Login</button>
+    </div>
+    <button style="display: block; width: 100%" type="submit" class="btn btn-primary mt-3">Log in</button>
   </form>
 </div>
+<div>
+  {{#with data}}
+      <input id="hiddenValue" type="hidden" value="{{username}}"/>
+  {{/with}}
+</div>
+
+{{!-- Modal alert --}}
+<div id="modal" style="display: none" class="Modal-Alert__content alert alert-success" role="alert">
+  <span style="font-weight: bold">
+  <i class="bi bi-check-circle-fill"></i>
+    Success!
+  </span>
+  Login successfully!!
+</div>
+<div id="modal-error" style="display: none" class="Modal-Alert__content alert alert-danger" role="alert">
+  <span style="font-weight: bold">
+  <i class="bi bi-exclamation-octagon-fill"></i>
+    Error!
+  </span>
+  <span id="error-content">
+    Username or Password not found!!
+  </span>
+</div>
+
 <script>
     const form = document.forms[0]
-    const userIpt = document.querySelector('input[type="text"]')
-    const passIpt = document.querySelector('input[type="password"]')
+    const userIpt = document.querySelector('#username')
+    const passIpt = document.querySelector('#password')
+    const checkCapsLock = document.querySelector('#checkCapsLock')
+    const modal = document.querySelector('#modal')
+    const modalError = document.querySelector('#modal-error')
+    const popup = document.querySelector('#hiddenValue')
+
+    //Visible password 
+    function showPw() {
+      if(passIpt.type == 'password') {
+        passIpt.type = 'text'
+      } else {
+        passIpt.type = 'password'
+      }
+    }
 
     //Stop space action on keyboard
     addEventListener('keydown', (e) => {
@@ -37,12 +89,42 @@
         userIpt.value = trim
     }
 
+    //Check Caps Lock is on
+    passIpt.addEventListener("keyup", (e) => {
+      if (e.getModifierState("CapsLock")) {
+        checkCapsLock.style.display = 'block'
+        setTimeout((()=>
+        checkCapsLock.style.display = 'none'
+        ),1000)
+      }
+    })
+
     //Check submit value if empty
     form.onsubmit = (e) => {
         if( userIpt.value == '' || passIpt.value == '') {
             e.preventDefault()
-            alert('Tài khoản hoặc mật khẩu không được để trống')
+            modalError.querySelector('#error-content').textContent='Username or Password is required'
+            modalError.style.display='block'
+            setTimeout((
+            () => modalError.style.display='none'
+          ), 1500)
         }
     }
-
+    
+    //Popup modal success
+    (function () {
+      if(popup) {
+        if(popup.value == '' || popup.value == 'not found') {
+          modalError.style.display='block'
+          setTimeout((
+            () => modalError.style.display='none'
+          ), 1500)
+        } else {
+          modal.style.display='block'
+          setTimeout((
+            () => window.location.replace('/')
+          ), 1500)
+        }
+      }
+    })()
 </script>

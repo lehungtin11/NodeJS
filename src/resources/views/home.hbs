@@ -1,7 +1,15 @@
+    {{!-- 
+    <div style="object-position: center center" class="wrapVideo">
+        <video id="myVideo" loop="" muted="" autoplay="">
+            <source src="/img/video.webm" type="video/webm">
+        </video>
+    </div>
+    ---------------- Chill background ----------------
+    --}}
     <article>
         {{#if (isAdmin username)}}
             <p style="font-size: 24px;">You're visit as <span style="color: orange; font-weight: bold">Admin</span></p>
-            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-warning d-flex mt-4" href="/courses/me/manage">Manage Course</a>
+            <a style="text-decoration: none;" class="btn-lg px-4 py-3 btn-warning d-flex mt-4" href="/courses/me/manage">Manage Course</a>
             <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-warning d-flex mt-4" href="/courses/create">Create Course</a>
             <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/setting">Account Setting</a>
             <a style="text-decoration: none; color: white" class="btn-lg px-4 py-3 btn-info d-flex mt-4" href="/blog">Blog</a>
@@ -13,9 +21,139 @@
             <a style="text-decoration: none; color: white" class="btn-lg px-4 py-3 btn-info d-flex mt-4" href="/blog">Blog</a>
             <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-primary d-flex mt-4" href="/courses">Courses</a>
         {{else}}
-            <p style="font-size: 24px;">You're visit as <span style="color: orange; font-weight: bold">GUEST</span></p>
-            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/blog">Blog</a>
-            <a style="text-decoration: none" class="btn-lg px-4 py-3 btn-secondary d-flex mt-4" href="/courses">Courses</a>
+            {{!-- Slide --}}
+
+            <div id="carouselExampleCaptions" class="carousel slide mt-4" data-bs-ride="false">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="first-slide-img" src="https://files.fullstack.edu.vn/f8-prod/banners/Banner_web_ReactJS.png" alt="First slide">
+                        <div class="first-slide-content">
+                            <div class="d-flex flex-column align-items-start">
+                                <h2 style="font-weight: 700">Học ReactJS Miễn Phí!</h5>
+                                <p style="text-align:left">Khóa học ReactJS từ cơ bản tới nâng cao. Kết quả của khóa học này là bạn có thể làm hầu hết các dự án thường gặp với ReactJS.</p>
+                                <a href="#" class="slide-show__button">Tìm hiểu thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="first-slide-img" src="img/Nodejs-banner.png" alt="Secon slide">
+                        <div class="first-slide-content">
+                            <a href="/register" style="text-decoration: none; color: #fff" class="d-flex flex-column align-items-start">
+                                <h2 style="font-weight: 700">Node <span style="color:#7dc10a">&amp;</span> ExpressJS</h5>
+                                <p style="text-align:left">Học Back-end với Node &amp; ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful API cho trang web.</p>
+                                <a href="#" class="slide-show__button">Đăng ký ngay</a>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="first-slide-img" src="https://neting.institute/storage/course/medium/BA0TV9M64v9nPYejH2sz7lycjjQC1XpYM1UiRjTn.png" alt="Third slide">
+                        <div class="first-slide-content">
+                            <div class="d-flex flex-column align-items-start">
+                                <h2 style="font-weight: 700">HTML CSS</h5>
+                                <p style="text-align:left">Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là <br> The Band &amp; Shopee </p>
+                                <a href="#" class="slide-show__button">Tham gia khoá học</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev"  data-bs-target="#carouselExampleCaptions" type="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true">
+                        <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path
+                            fill="currentColor"
+                            d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"  data-bs-target="#carouselExampleCaptions" type="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true">
+                        <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path
+                            fill="currentColor"
+                            d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            {{!-- Roadmap --}}
+            <div class="mt-4 ms-4">
+                <h1>
+                    <span style="font-size: 24px; font-weight: 1000">
+                        Lộ trình học Front-end
+                        <span style="background-color: #0d6efd;" class="badge badge-primary">Mới</span>
+                    </span>
+                </h1>
+                <div class="row d-flex flex-row mt-4">
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/7.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Kiến Thức Nhập Môn IT</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/2.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">HTML CSS từ Zero đến Hero</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/3.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Responsive Với Grid System</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/1.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Lập Trình JavaScript Cơ Bản</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 ms-4">
+                <h1>
+                    <span style="font-size: 24px; font-weight: 1000">
+                        Lộ trình học Back-end
+                        <span style="background-color: #0d6efd;" class="badge badge-primary">Mới</span>
+                    </span>
+                </h1>
+                <div class="row d-flex flex-row mt-4">
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/7.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Kiến Thức Nhập Môn IT</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/2.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">HTML CSS từ Zero đến Hero</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/3.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Responsive Với Grid System</p>
+                        </div>
+                    </div>
+                    <div class="card-lg-2 card border-0" style="width: 17rem;">
+                        <img style="border-radius: 16px" class="card-img-top" src="https://files.fullstack.edu.vn/f8-prod/courses/1.png" alt="Card image cap">
+                        <div style="padding-left: 0; padding-top: 8px; font-weight: bold" class="card-body">
+                            <p class="card-text">Lập Trình JavaScript Cơ Bản</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {{/if}}
         {{/if}}
     </article>

@@ -6,7 +6,7 @@ class RegisterController {
     index(req, res, next) {
         // Check if user already login
         if(req.session.username) res.redirect('/')
-        res.render('register')
+        res.render('register', {layout:'sub'})
     }
 
     // [POST] /register/create

@@ -8,7 +8,7 @@ const comment = new Schema({
   username: {type: String},
   content: {type: String},
   slug: {type: String},
-  reply: [{type: String}],
+  reply: [],
   }, {
     timestamps: true
   });

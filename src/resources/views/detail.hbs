@@ -1,24 +1,27 @@
 <div class="mt-4">
     <div class="row">
-            {{#with data}}
             <div class="col-lg-8">
+            {{#with data}}
+
                 <iframe
-                    width="700"
-                    height="350"
+                    width="740"
+                    height="420"
                     src="https://www.youtube.com/embed/{{videoId}}?autoplay=0&modestbranding=1&rel=0"
                     title="{{name}}"
                     frameborder="0"
                     allow="autoplay" allowfullscreen>
                 </iframe>
+
                 <h2 class="mt-2">{{name}}</h2>
                 <p>{{desc}}</p>
+
                 {{/with}}
                 <hr>
                 
                 {{!-- Comment block --}}
                 <div class="comment">
-                    <p style="font-weight: 400">{{countComment}} bình luận</p>
 
+                    <p style="font-weight: 400">{{countComment}} bình luận</p>
                     {{!-- Input comment --}}
                     <div style="margin-bottom: 16px" class="d-flex align-items-center">
                         <span class="avatar me-2 mb-2">
@@ -31,17 +34,18 @@
                             {{/if}}
                             />
                         </span>
+
                                 {{#with data}}
                         <form style="width: 100%" method="POST" action="comment/{{name}}">
                             <div class="comment-block-input">
-                                <input type="hidden" name="slug" value="{{name}}">
+                                <input type="hidden" name="slug" value="{{slug}}">
                                 {{/with}}
                                 <input type="hidden" name="username" value="{{username}}">
-                                <input type="hidden" name="reply" value="{{username}}">
                                 <input
                                     type="hidden"
                                     name="avatar"
-                                    value={{#if avatar}}
+                                    value=
+                                    {{#if avatar}}
                                         '{{avatar}}'
                                     {{else}}
                                         'AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj'
@@ -49,57 +53,101 @@
                                 >
                                 <div class="d-flex flex-wrap justify-content-end">
                                     <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Viết bình luận..."></textarea>
-                                    <button type="submit" class="comment-block-input__submit-input mt-2" id="submit">BÌNH LUẬN</button>
+                                    <button type="submit" class="mt-2 btn btn-primary primary" id="submit">BÌNH LUẬN</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 
-                        {{!-- Comments --}}
+                        {{!-- List of Comments --}}
                         {{#each comment}}
-                            <div style="margin-bottom: 16px;" class="d-flex align-items-center">
+                            <div style="margin-bottom: 16px;" class="d-flex ">
                                 <span class="avatar me-2 mb-2">
                                     <img
                                         src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
                                         alt="{{this.username}}"
                                     />
                                 </span>
+                                {{!-- Reply block --}}
                                 <div class="comment-block-input">
                                     <span>{{this.username}}</span>
                                     <li>{{this.content}}</li>
                                     <span id="reply-btn" class="reply-btn">PHẢN HỒI</span>
                     
-                                    {{!-- Reply input comment --}}
+                                    {{!-- Reply input --}}
                                     <div class="hide">
-                                        <div class="d-flex flex-column align-items-end">
-                                            <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Phản hồi..."></textarea>
-                                            <button type="submit" class="comment-block-input__submit-input mt-2" id="submit">PHẢN HỒI</button>
+                                        <div class="d-flex mt-2">
+
+                                            <span class="avatar-reply me-2">
+                                                <img
+                                                    src="https://yt3.ggpht.com/ytc/{{@root.avatar}}"
+                                                    alt="{{@root.username}}"
+                                                />
+                                            </span>
+
+                                            <form method="POST" action="reply?_id={{this._id}}" style="width: 100%" class="d-flex flex-column align-items-end me-4">
+                                                <input type="text" hidden name="avatar" value="{{@root.avatar}}">
+                                                <input type="text" hidden name="username" value="{{@root.username}}">
+                                                <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Phản hồi..."></textarea>
+                                                
+                                                <div class="d-flex mt-2">
+                                                    <button type="submit" class="btn btn-light cancel me-2">HUỶ</button>
+                                                    <button type="submit" class="btn btn-primary primary" id="submit">PHẢN HỒI</button>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
                     
-                                    <br>
-                                    <span id="total-reply" style="color:dodgerblue; cursor: pointer">
-                                        11 câu trả lời
-                                            {{!-- Reply comment --}}
-                                        <ul class="hide reply-block">
-                                            <div style="margin-bottom: 16px;" class="d-flex align-items-center">
-                                                <span class="avatar me-2 mb-2">
-                                                    <img
-                                                    {{#if avatar}}
-                                                        src="https://yt3.ggpht.com/ytc/{{avatar}}"
-                                                        alt="{{username}}"
-                                                    {{else}}
-                                                        src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
-                                                    {{/if}}
-                                                    />
-                                                </span>
-                                                <div class="comment-block-input">
-                                                    <span>{{username}}</span>
-                                                    <li>Hayyy!!</li>
-                                                </div>
+                                            {{!-- Reply list of comments --}}
+                                    <p class="total-reply" style="color:dodgerblue; cursor: pointer; margin-bottom: 8px">
+                                        {{#if this.reply.length}} {{this.reply.length}} câu trả lời{{else}}{{/if}}
+                                        
+                                        <div class="hide reply-block">
+                                                {{#each this.reply}}
+                                            <div style="margin-bottom: 8px;" class="d-flex">
+                                                    <span class="avatar-reply me-2 mb-2">
+                                                        <img
+                                                        {{#if this.avatar}}
+                                                            src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
+                                                            alt="{{username}}"
+                                                        {{else}}
+                                                            src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                                                        {{/if}}
+                                                        />
+                                                    </span>
+                                                    <div class="comment-block-input">
+                                                        <span>{{this.username}}</span>
+                                                        <li>{{this.content}}</li>
+                                                        <span class="reply-btn-2">PHẢN HỒI</span>
+                                                    </div>
                                             </div>
-                                        </ul>
-                                    </span>
+                                                    {{!-- Reply input 2 --}}
+                                                        <span class="hide">
+                                                            <div class="d-flex reply-block-2">
+                                                                <span class="avatar-reply me-2 mb-2">
+                                                                    <img
+                                                                        src="https://yt3.ggpht.com/ytc/{{@root.avatar}}"
+                                                                        alt="{{@root.username}}"
+                                                                    />
+                                                                </span>
+                                                                <form method="POST" action="reply?_id={{this._id}}" style="width: 100%" class="d-flex flex-column align-items-end me-4">
+                                                                    <input type="text" hidden name="avatar" value="{{@root.avatar}}">
+                                                                    <input type="text" hidden name="username" value="{{@root.username}}">
+                                                                    <textarea required autocomplete="off" name="content" class="comment-block-input__text-input" id="test-text" placeholder="Phản hồi..."></textarea>
+                                                    
+                                                                    <div class="d-flex mt-2">
+                                                                        <button type="submit" class="btn btn-light cancel-2 me-2">HUỶ</button>
+                                                                        <button type="submit" class="btn btn-primary primary" id="submit">PHẢN HỒI</button>
+                                                                    </div>
+                                                                </form>
+                                                    
+                                                            </div>
+                                                        </span>
+
+                                                {{/each}}
+                                        </div>
+                                    </p>
                                 </div>
                             </div>
                         {{/each}}
@@ -107,31 +155,127 @@
                 {{!-- End col-lg-8 --}}
             </div>
 
-        {{!-- Back button block --}}
+        {{!-- Suggest Video block --}}
         <div class="col-lg-4">
-            <hr>
-            <a href="/courses" class="btn btn-info px-5">Back</a>
+            {{#each totalVideo}}
+            <div class="d-flex mb-2 block-detail">
+                <a class="play-video d-flex" href="/courses/{{this.slug}}">
+                        
+                    <img
+                        src="https://i.ytimg.com/vi/{{this.videoId}}/maxresdefault.jpg"
+                        class="thumpnail"
+                        alt="{{this.name}}"
+                    />
+
+                    <iframe
+                        width="168"
+                        height="94"
+                        id="{{videoId}}"
+                        class="iframe-detail"
+                        title="{{name}}"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+
+                </a>
+                <a href="/courses/{{this.slug}}" class="ms-2 d-flex flex-column justify-content-start block-detail__text">
+                    
+                    <span>
+                        {{this.name}}
+                    </span>
+                    <span class="mt-1">
+                        {{this.desc}}
+                    </span>
+                
+                </a>
+            </div>
+            {{/each}}
+
         </div>
     </div>
 </div>
-
-
+{{!-- End col-lg-4 --}}
 
 <script>
+    //
+    // Hover youtube img to play
+    // 
+        document.addEventListener('DOMContentLoaded', () => {
+        const iFrames = document.querySelectorAll('.iframe-detail');
+        const wrapper = document.querySelectorAll('.block-detail');
+        var iframeQuery;
+        wrapper.forEach(wrap => {
+            wrap.addEventListener('mouseenter', (e) => {
+                iframeQuery = e.target.querySelector('.iframe-detail')
+                iframeId = iframeQuery.id;
+                iframeQuery.src=`https://www.youtube.com/embed/${iframeId}?autoplay=1&fs=0&modestbranding=1&rel=0&start=1`
+                iframeQuery.allow="autoplay"
+            })
+
+            wrap.addEventListener('mouseleave', () => {
+                iframeQuery.src=``
+            })
+            
+        })
+    })
+</script>
+
+<script>
+        const cancelBtns = document.querySelectorAll('button[class="btn btn-light cancel me-2"]');
+        const cancelBtns2 = document.querySelectorAll('button[class="btn btn-light cancel-2 me-2"]');
         const replyBtns = document.querySelectorAll('span[class="reply-btn"]');
-        const totalReplyBtns = document.querySelectorAll('span[id="total-reply"]');
-        const replyIptBlock = document.querySelectorAll('div[class="hide"]');
-        const replyBlock = document.querySelectorAll('ul[class="hide reply-block"]');
-        
-        totalReplyBtns.forEach((btn, index) => {
+        const replyBtns2 = document.querySelectorAll('span[class="reply-btn-2"]');
+        const replyComment = document.querySelectorAll('div[class="hide reply-block"]');
+        const replyComment2 = document.querySelectorAll('div[class="d-flex reply-block-2"]');
+        const replyInput = document.querySelectorAll('div[class="hide"]');
+        const totalReply = document.querySelectorAll('p[class="total-reply"]');
+
+        //Toggle show/hide reply input when click .cancel button
+        cancelBtns.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
-                replyBlock[index].classList.toggle('hide')
+                replyInput[index].classList.toggle('hide')
+            })
+        })
+        cancelBtns2.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                replyComment2[index].parentNode.classList.toggle('hide');
+            })
+        })
+
+        //Toggle show/hide reply input when click .reply-btn
+        replyBtns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                replyInput[index].classList.toggle('hide')
+                replyInput[index].scrollIntoView({
+                    behavior: 'auto',
+                    block: 'center',
+                    inline: 'center'
+                });
             })
         })
         
-        replyBtns.forEach((btn, index) => {
+        //Toggle show/hide reply comment when click .total-reply button
+        totalReply.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
-                replyIptBlock[index].classList.toggle('hide')
+                replyComment[index].classList.toggle('hide')
+                replyComment[index].scrollIntoView({
+                    behavior: 'auto',
+                    block: 'center',
+                    inline: 'center'
+                })
+            })
+        })
+
+        //Reply reply comment button
+        replyBtns2.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                replyComment2[index].parentNode.classList.toggle('hide');
+                replyComment2[index].scrollIntoView({
+                    behavior: 'auto',
+                    block: 'center',
+                    inline: 'center'
+                });
+
             })
         })
 </script>

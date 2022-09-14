@@ -1,4 +1,5 @@
 const MyModel = require('../models/register')
+const ToObject = require('../../helpers/toObject')
 
 class LoginController {
 
@@ -6,14 +7,14 @@ class LoginController {
     index(req, res, next) {
         // Check if user already login
         if(req.session.username) res.redirect('/')
-        res.render('login')
+        res.render('login',{layout:'sub'})
     }
 
     // [POST] /submit
     async submit(req, res, next) {
         try {
             if(!req.body.username || !req.body.password) {
-                res.send('<h1 style="text-align:center; margin-top: 20vh">Tài khoản hoặc mật khẩu không được để trống. <a href="/login">Trở lại</a></h1>')
+                res.send("<h1 style='text-align:center; margin-top: 20vh'>Username and Password is required. <a href='/login'>Back</a></h1>")
             }   
            await MyModel.findOne({username: req.body.username, password: req.body.password})
             .then(data => {
@@ -21,10 +22,18 @@ class LoginController {
                     var sess = req.session;
                     sess.logged = true;
                     sess.username = req.body.username
-                    sess.avatar = data.avatar
-                    res.redirect('/')
+                    sess.avatar = data.avatar || 'AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj'
+                    res.render('login', {
+                        data: ToObject.oneData(data),
+                        layout: 'sub'
+                    })
                 } else {
-                    res.send(('<div style="height: 50vh;display:flex; align-items:center; justify-content:center"><h1 style="">Wrong info, try again <a href="/login" >here</a></h1></div>'))
+                    res.render('login', {
+                        preUsername: req.body.username,
+                        prePassword: req.body.password,
+                        data: 'not found',
+                        layout: 'sub'
+                    })
                 }
             })
             .catch((err)=>{

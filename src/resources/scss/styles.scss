@@ -6,13 +6,15 @@
     width: 32px;
 }
 
+// ----------COURSES PAGE----------
+
 .block {
     position: relative;
-    transition: box-shadow, padding-left, padding-right ease .35s;
+    transition: linear .35s;
 }
 
 .block:hover {
-    transition: box-shadow ease .35s;
+    transition: box-shadow linear .35s;
     box-shadow: #000 0px 2px 8px;
     border-radius: 3px;
     padding-left: 0;
@@ -69,47 +71,59 @@
     text-decoration: none;
 }
 
+// NOT FOUND PAGE
+
 .not-found {
     font-size: 128px;
     font-weight: bold;
     color: #333;
 }
 
+// CUSTOM PAGINATION
 .pagination a {
     text-decoration: none;
 }
 
-// Comment block
+// ----------Comment block----------
 .comment {
    & .avatar {
         img {
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
         }
     }
     .comment-block-input {
         width: 100%;
         .comment-block-input__text-input {
+            line-height: 16px;
+            padding: 0;
             outline: none;
             border: none;
             width: 100%;
             border-bottom: 1px solid #ccc;
             background-color: transparent;
         }
-        .comment-block-input__submit-input {
-            border: none;
-            outline: none;
-            border-radius: 3px;
-            padding: 4px 8px;
+        .cancel, .cancel-2 {
+            color: #606060;
+            font-weight: 500;
         }
-        .reply-btn {
+        .primary {
+            color:#fff;
+            background-color: #065fd4;
+            font-weight: 500;
+            &:hover {
+                opacity: .9;
+            }
+        }
+        .reply-btn,
+        .reply-btn-2 {
             cursor: pointer;
             color:rgb(96,96,96);
             font-size: 12px;
             font-weight: bold;
         }
-        span {
+        p, span {
             font-weight: 600;
         }
         li {
@@ -118,6 +132,13 @@
         textarea {
             resize: none;
         }
+    }
+    .avatar-reply {
+        img {
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+        }
     }   
 }
 
@@ -125,3 +146,216 @@
     display: none;
 }
 
+// ------------- Iframe detail page -----------
+
+.thumpnail {
+    display: block;
+    width: 168px;
+    height: 94px;
+}
+
+.iframe-detail {
+    display: none;
+}
+
+.block-detail:hover .thumpnail {
+    display: none;
+}
+
+.block-detail:hover .iframe-detail {
+    display: block;
+    pointer-events: none;
+}
+
+.block-detail__text {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    line-height: 1.2;
+    span {
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        &:nth-child(2) {
+            color: #606060;
+            font-weight: 400
+        }
+    }
+}
+
+// ----------Reply Block 2----------
+.reply-block-2 {
+    margin-left: 32px;
+}
+
+// Chill chill background video
+
+.wrapVideo {
+    object-fit: cover;
+}
+
+#myVideo {
+    // position: fixed;
+    object-position: center center;
+    object-fit: cover;
+    // z-index: -1;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+// ---------------->Login page<----------------
+.login-form {
+    margin-top: 12px;
+    .header-form {
+        display: block;
+        color:rgb(110, 110, 110);
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+    }
+}
+
+.visible-password {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+// ----------- Modal ALert-----------
+.Modal-Alert__content {
+    position: fixed !important;
+    text-align: center;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ccc;
+    animation: swipeDown .3s;
+}
+
+@keyframes swipeDown {
+    from {
+        top: 5%;
+    }
+}
+
+
+// ---------- Custom Slide ----------
+.carousel-inner {
+    border-radius: 16px;
+    min-height: 270px;
+
+    .carousel-item {
+        background: linear-gradient(to right, rgb(40, 119, 250), rgb(103, 23, 205));
+        height: 270px;
+        &:nth-child(2) {
+            background: linear-gradient(to right,#c7e519,#82b70d);
+        }
+        &:nth-child(3) {
+            background: linear-gradient(to right, #19b5e3, #456df1)
+        }
+        img {
+            object-fit: cover;
+            height: 100%;
+        }
+    }
+
+    .first-slide-img {
+        float: right
+    }
+    .first-slide-content {
+        position: relative;
+        color: #fff;
+        top: 20%;
+        left: 4%;
+    }
+
+}
+
+.slide-show__button {
+    text-decoration: none;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    min-width: 124px;
+    padding: 4px 10px;
+    text-align: center;
+    transition: .2s ease;
+    &:hover {
+        mix-blend-mode: screen;
+        color: black;
+        background-color: #fff;
+    }
+}
+
+.carousel {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        box-shadow: 0 3px 6px rgb(0, 0, 0 / 16%);
+        padding: 10px;
+        background-color: #fff;
+        color: #4b4b4b;
+        background-image: none;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 20px;
+    }
+    .carousel-control-prev {
+        justify-content: flex-start;
+        .carousel-control-prev-icon {
+            margin-left: -16px;
+        }
+    }
+    .carousel-control-next {
+        padding-right: -12px;
+        justify-content: flex-end;
+        .carousel-control-next-icon {
+            margin-right: -16px;
+        }
+    }
+}
+
+.carousel-indicators{
+    .active {
+        background-color: #fff;
+    }
+    
+    li {
+        position: relative;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+        flex: 0 1 auto;
+        width: 30px;
+        height: 3px;
+        margin-right: 3px;
+        margin-left: 3px;
+        text-indent: -999px;
+        background-color: rgba(255,255,255,.5);
+    }
+
+}
+
+.card-text {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: #292929;
+    display: -webkit-box;
+    font-size: 18px;
+    line-height: 1.4;
+    overflow: hidden;
+}

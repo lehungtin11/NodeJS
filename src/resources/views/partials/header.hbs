@@ -1,10 +1,16 @@
   <nav id="myHeader" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">MeTube</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse justify-content-end navbar-collapse" id="navbarNavDarkDropdown">
+    <div style="width: 100%" class="d-flex justify-content-between mx-4">
+
+      {{!-- Logo & Title --}}
+      <a class="navbar-brand" href="/">
+        <img style="height: 38px; width: 38px" src="/img/logo.png" alt="logo" />
+        <span style="font-weight: bold">MeTub</span> | Học Lập Trình
+      </a>
+      
+      <input style="border: none; margin: auto 0 auto -10%; width: 35%; border-radius: 999px; " class="form-control" type="text" placeholder="Tìm kiếm khoá học...">
+
+      {{!-- Drop down list --}}
+      <div style="flex-grow: 0" class="collapse justify-content-end navbar-collapse" id="navbarNavDarkDropdown">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
             {{#if parameter}}
@@ -18,7 +24,7 @@
                 alt="avatar-user"
                 class="avatar-user"
               />
-              <b>{{parameter}}</b>
+              <span style="font-weight: bold">{{parameter}}</span>
             </a>
             {{else}}
             <div>

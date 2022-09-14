@@ -36,10 +36,14 @@
                 iframeId = iframeQuery.id;
                 iframeQuery.src=`https://www.youtube.com/embed/${iframeId}?autoplay=1&fs=0&modestbranding=1&rel=0&start=1`
                 iframeQuery.allow="autoplay"
+                e.target.scrollIntoView({
+                    behavior: 'auto',
+                    block: 'center',
+                    inline: 'center'
+                })
             })
-
             wrap.addEventListener('mouseleave', () => {
-                iframeQuery.src=`https://www.youtube.com/embed/`
+                iframeQuery.src=``
             })
             
         })
