@@ -1,7 +1,7 @@
 <form
     method="POST"
-    action="/courses/me/deletemany?_method=DELETE"
     id="function-form"
+    action="/courses/me/deletemany?_method=DELETE"
 >
     <table class="table">
         <thead>
@@ -14,13 +14,13 @@
                 </th>
                 <th scope="col">#</th>
                 <th scope="col">
-                    Tên bài học
+                    Tên khóa học
                     <a href="?_sort">
                         <i class="bi bi-sort-alpha-down"></i>
                     </a>
                 </th>
                 <th scope="col">
-                    Mô tả bài học
+                    Mô tả khóa học
                 </th>
                 <th scope="col">
                     Khoá học
@@ -36,10 +36,10 @@
             <tr>
                 <td>
                     <input
-                        class="form-check-input chkBoxItem"
-                        name="deleteItem"
-                        value={{this._id}}
                         type="checkbox"
+                        name="deleteItem"
+                        class="form-check-input chkBoxItem"
+                        value={{this._id}}
                     />
                 </td>
                 <th scope="row">
@@ -89,24 +89,18 @@
         <div class="row mt-4 text-center ">
             <h2>
                 <i class="bi bi-folder-fill"></i>
-                QUẢN LÝ BÀI HỌC
+                QUẢN LÝ KHÓA HỌC
             </h2>
         </div>
         <div class="row mt-4 justify-content-between">
             <div class="col">
-                <a
-                    href="/courses/create"
-                    class="btn btn-secondary"
-                >
+                <a href="/group-Courses/create" class="btn btn-secondary">
                     <i class="bi bi-plus-square"></i>
-                    Tạo bài học mới
+                    Tạo khóa học mới
                 </a>
             </div>
             <div class="col-lg-2" style="padding-left: 80px">
-                <a
-                    href="/courses/me/trash"
-                    class="btn btn-secondary"
-                >
+                <a href="/courses/me/trash" class="btn btn-secondary" >
                     <i class="bi bi-trash3-fill"></i>
                     ({{deleteCount}})
                 </a>
@@ -143,7 +137,9 @@
                         <a
                             href="/courses/me/manage?page=1"
                             class="page-link"
-                        >Trang đầu</a>
+                        >
+                            Trang đầu
+                        </a>
                     </li>
                     <li class="page-item">
                         <a
@@ -155,19 +151,15 @@
                     </li>
                     {{else}}
                     <li class="page-item disabled">
-                        <a
-                            class="page-link"
-                            href="/courses/me/manage"
-                        >Trang đầu</a>
+                        <a class="page-link" href="/courses/me/manage">
+                            Trang đầu
+                        </a>
                     </li>
                     {{/if}}
                     <li class="page-item active">
-                        <a
-                            class="page-link"
-                            href="#"
-                        >
-                            {{currentPage
-                        }}</a>
+                        <a class="page-link" href="#">
+                            {{currentPage}}
+                        </a>
                     </li>
                     {{#if (handlePagination (sum currentPage 1) totalPage)}}
                     <li class="page-item">
@@ -182,14 +174,15 @@
                         <a
                             class="page-link"
                             href="/courses/me/manage?page={{totalPage}}"
-                        >Trang cuối</a>
+                        >
+                            Trang cuối
+                        </a>
                     </li>
                     {{else}}
                     <li class="page-item disabled">
-                        <a
-                            class="page-link"
-                            href="/courses/me/manage"
-                        >Trang cuối</a>
+                        <a class="page-link" href="/courses/me/manage">
+                            Trang cuối
+                        </a>
                     </li>
                     {{/if}}
                 </ul>
@@ -199,55 +192,55 @@
 </form>
       
 <!-- Modal -->
-<div
-    class="modal fade"
-    id="delete-modal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5
-                    style="color:#dc3545"
-                    class="modal-title"
-                    id="exampleModalLabel"
-                >
-                    <i class="bi bi-exclamation-octagon-fill"></i>
-                    Xoá bài học
-                </h5>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                Hành động này sẽ tạm thời chuyển bài học vào thùng rác. Bạn chắc chắn muốn xoá? 
-            </div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                >
-                    Đóng
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-warning"
-                    id="confirm-delete"
-                >
-                    Xác nhận
-                </button>
+    <div
+        class="modal fade"
+        id="delete-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5
+                        style="color: #dc3545"
+                        class="modal-title"
+                        id="exampleModalLabel"
+                    >
+                        <i class="bi bi-exclamation-octagon-fill"></i>
+                        Xoá khóa học
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    Hành động này sẽ tạm thời chuyển khóa học vào thùng rác. Bạn chắc chắn muốn xoá? 
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Đóng
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-warning"
+                        id="confirm-delete"
+                    >
+                        Xác nhận
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {{!-- Hidden form --}}
-    <form method="POST" id="delete-form"></form>
+<form method="POST" id="delete-form"></form>
 
 <script>
     addEventListener('DOMContentLoaded', () => {
@@ -278,30 +271,31 @@
                     }
                 btnSubmitForm.setAttribute('disabled','disabled')
             }
-        }
+            }
 
         //{{!-- handle checkbox item --}}
-        chkBoxItem.forEach(e=>{
-            e.addEventListener('change', (e) => {
-                const checked = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
-                if(checked.length == chkBoxItem.length) {
-                    chkBoxAll.checked=true;
-                } else {
-                    chkBoxAll.checked=false
-                }
-                if(!e.target.checked && !checked.length > 0) {
-                    btnSubmitForm.setAttribute('disabled','disabled')
-                } else {
-                    btnSubmitForm.removeAttribute('disabled')
-                }
+            chkBoxItem.forEach(e=>{
+                e.addEventListener('change', (e) => {
+                    const checked = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
+                    if(checked.length == chkBoxItem.length) {
+                        chkBoxAll.checked=true;
+                    } else {
+                        chkBoxAll.checked=false
+                    }
+                    if(!e.target.checked && !checked.length > 0) {
+                        btnSubmitForm.setAttribute('disabled','disabled')
+                    } else {
+                        btnSubmitForm.removeAttribute('disabled')
+                    }
+                })
             })
-        })
 
         //{{!-- Open modal --}}
-        modal.addEventListener('show.bs.modal', event => {
+        modal.addEventListener('show.bs.modal', event =>
+            {
             const button = event.relatedTarget
             btnId = button.getAttribute('data-id')
-        })
+            })
 
         //{{!-- Confirm delete --}}
         btnConfirm.addEventListener('click', () => {

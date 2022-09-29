@@ -1,26 +1,34 @@
 const MyModel = require('../models/course')
 const CommentModel = require('../models/comment')
 const ReplyModel = require('../models/reply')
+const GroupCourses = require('../models/groupCourses')
 const ToObject = require('../../helpers/toObject')
 
 class CoursesController {
 
     // [GET] /courses
-    index(req, res, next) {     
-        MyModel.find()
-        .then(docs => res.render('course/courses',{data: ToObject.manyData(docs)}))
-        .catch(next)
+    index(req, res, next) {
+        if(req.query.category) {
+            MyModel.find({name: req.query.category})
+            .then(docs => res.render('course/courses',{data: ToObject.manyData(docs)}))
+            .catch(() => res.redirect('/not-found'))
+        } else {
+            res.redirect('/not-found')
+        }
       };
 
-    //   [GET] /courses/:slug
+    //   [GET] /courses/:_id
     show(req, res, next) {
         Promise.all([
-            MyModel.findOne({slug: req.params.slug}),
-            CommentModel.find({slug: req.params.slug}),
-            CommentModel.count({slug: req.params.slug}),
-            MyModel.find()
+            MyModel.findOne({_id: req.params.id}),
+            CommentModel.find({courseId: req.params.id}),
+            CommentModel.count({courseId: req.params.id}),
+            MyModel.find({name: req.query.name}),
+            MyModel.findOne({_id: req.params.id})
         ])
-        .then(([data, comment, countComment, totalVideos]) => {
+        .then(([data, comment, countComment, totalVideos, currentVideo]) => {
+                let highLight;
+                (currentVideo) ? highLight = true : highLight = false
                 const totalReplyComment = comment.map(data => data.reply.length)
                 res.render('detail', {
                     countComment,
@@ -28,9 +36,13 @@ class CoursesController {
                     data: ToObject.oneData(data),
                     comment: ToObject.manyData(comment),
                     totalVideo: ToObject.manyData(totalVideos),
+                    current: highLight,
+                    currentVi: ToObject.oneData(currentVideo)
                 })
             })
-            .catch(next)
+        .catch(() => {
+            res.redirect('/not-found')
+        })
     }
 
     //   [POST] /courses/comment/:slug
@@ -63,7 +75,13 @@ class CoursesController {
 
     // [GET] /courses/create
     create(req, res, next) {
-        res.render('course/create')
+        GroupCourses.find()
+        .then(data => {
+            res.render('course/create', {
+                data: ToObject.manyData(data)
+            })
+        })
+        .catch(next)
     }
 
     // [POST] /courses/store
@@ -72,14 +90,22 @@ class CoursesController {
         await course.save(err => {
             if(err) return console.log(err)
         })
-        res.redirect('/courses')
+        res.redirect('back')
     }
 
     // [GET] /courses/update/:slug
     update(req, res, next) {
-            MyModel.findOne({slug: req.query.slug})
-            .then(data => res.render('course/update',{data:ToObject.oneData(data)}))
-            .catch(next)
+        Promise.all([
+            GroupCourses.find(),
+            MyModel.findOne({_id: req.query.slug}),
+        ])
+        .then(([groupCourses, data]) => {
+            res.render('course/update',{
+                group: ToObject.manyData(groupCourses),
+                data: ToObject.oneData(data),
+            })
+        })
+        .catch(next)
     }
 
 }

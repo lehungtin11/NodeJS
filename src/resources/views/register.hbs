@@ -1,46 +1,174 @@
 <div class="container login-form" style="width: 400px">
-    <span class="header-form mt-4">SIGN UP</span>
-    <form method="POST" action="/register/create" class="mt-4">
+    <span class="header-form mt-4">
+        Đăng ký thành viên
+    </span>
+    <form
+        method="POST"
+        action="/register/create"
+        class="mt-4"
+    >
+        {{!-- Email input --}}
         <div class="mb-3">
             <label for="email" class="form-label">
-                Email address
+                <i class="bi bi-envelope"></i>
+                Địa chỉ Email
                 <span style="color:red">*</span>
             </label>
-            <input required autocomplete="off" type="email" class="form-control" id="email" name="email">
+            <input
+                required
+                autocomplete="off"
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{preEmail}}"
+            />
         </div>
+        {{!-- Username input --}}
         <div class="mb-3">
             <label for="username" class="form-label">
-                Username
+                <i class="bi bi-person"></i>
+                Tên tài khoản
                 <span style="color:red">*</span>
             </label>
-            <input autocomplete="off" type="text" class="form-control" id="username" name="username">
+            <input
+                autocomplete="off"
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                value="{{preUser}}"
+            />
+            {{!-- Validate 8 min-length username  --}}
+            <span id="userHelpBlock" class="hide form-text">
+                <i class="bi bi-x-lg"></i>
+                Tối thiểu 8 ký tự
+            </span>
         </div>
+        {{!-- Password input --}}
         <div class="mb-3">
             <label for="password" class="form-label">
-                Password
+                <i class="bi bi-lock"></i>
+                Mật khẩu
                 <span style="color:red">*</span>
             </label>
-            <input autocomplete="off" type="password" class="form-control" id="password" name="password">
+            <input
+                autocomplete="off"
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                value="{{prePass}}"
+            />
+            {{!-- Show/hide password --}}
             <span class="visible-password mt-1">
                 <i class="bi bi-eye" onclick="showPw()">
-                    Show Password
+                    Hiển thị mật khẩu
                 </i>
             </span>
-            <span style="display: none" id="checkCapsLock" class="alert alert-danger" role="alert">WARNING! Caps lock is ON.</span>
+            {{!-- Validate 6 min-length password --}}
+            <span id="passwordHelpBlock" class="hide form-text">
+                <i class="bi bi-x-lg"></i>
+                Tối thiểu 6 ký tự
+            </span>
+            {{!-- Validate caps lock --}}
+            <span
+                style="display: none"
+                id="checkCapsLock"
+                class="alert alert-danger"
+                role="alert"
+            >
+                Cảnh báo! Caps lock đang được bật.
+            </span>
+        </div>
+        {{!-- Pre input password --}}
+        <div class="mb-3">
+            <label for="prePassword" class="form-label">
+                <i class="bi bi-lock"></i>
+                Nhập lại mật khẩu
+                <span style="color:red">*</span>
+            </label>
+            <input
+                autocomplete="off"
+                type="password"
+                class="form-control"
+                id="prePassword"
+                name="prePassword"
+            />
+            {{!-- Validate pre password not match --}}
+            <span id="prePasswordBlock" class="hide form-text">
+                <i class="bi bi-x-lg"></i>
+                Mật khẩu nhập lại không khớp
+            </span>
         </div>
         <div class="form-text">
-            Already have account?
-            <a href="/login">Login</a>
+            Bạn là thành viên?
+            <a href="/login">
+                Đăng nhập
+            </a>
         </div>
-        <button style="display: block; width: 100%" type="submit" class="btn btn-primary mt-3">Register</button>
+        {{!-- Sign up button --}}
+        <button
+            style="display: block; width: 100%"
+            type="submit"
+            class="btn btn-primary mt-3"
+        >
+            Đăng ký
+        </button>
     </form>
 </div>
+
+{{!-- Modal Success --}}
+    <div
+        id="modal-success"
+        style="display: none"
+        class="Modal-Alert__content alert alert-success"
+        role="alert"
+    >
+        <span style="font-weight: bold">
+            <i class="bi bi-check-circle-fill"></i>
+            Thành công!
+        </span>
+        Đăng ký thành công!!
+    </div>
+{{!-- Modal Error --}}
+    <div
+        id="modal-error"
+        style="display: none"
+        class="Modal-Alert__content alert alert-danger"
+        role="alert"
+    >
+        <span style="font-weight: bold">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            Có lỗi!
+        </span>
+        <span id="error-content">
+            Những trường * là bắt buộc!!
+        </span>
+    </div>
+    
 <script>
     const form = document.forms[0]
     const emailIpt = document.querySelector('input[type="email"]')
     const userIpt = document.querySelector('input[type="text"]')
     const passIpt = document.querySelector('input[type="password"]')
+    const prePass = document.querySelector('input[id="prePassword"]')
+    const checkCapsLock = document.querySelector('#checkCapsLock')
+    const modalSuccess = document.querySelector('#modal-success')
+    const modalError = document.querySelector('#modal-error')
+    const errorContent = modalError.querySelector('#error-content')
+    const passwordHelpBlock = document.querySelector('#passwordHelpBlock')
+    var validateError = false;
 
+    //Visible password 
+    function showPw() {
+      if(passIpt.type == 'password') {
+        passIpt.type = 'text'
+      } else {
+        passIpt.type = 'password'
+      }
+    }
+    
     //Stop space action on keyboard
     addEventListener('keydown', (e) => {
         if(e.keyCode == '32') {
@@ -52,6 +180,21 @@
     passIpt.onchange = e => {
         var trim = e.target.value.trim()
         passIpt.value = trim
+    //Check min-length password
+        if(passIpt.value.length < 6) {
+            validateError = true;
+            passwordHelpBlock.style.color='red'
+            passwordHelpBlock.classList.remove('hide')
+        } else {
+            validateError = false
+            const icon = passwordHelpBlock.querySelector('.bi-x-lg')
+            icon.classList.replace('bi-x-lg','bi-check-lg')
+            passwordHelpBlock.style.color='green'
+            setTimeout(() => {
+                passwordHelpBlock.classList.add('hide')
+                icon.classList.replace('bi-check-lg', 'bi-x-lg')
+            }, 1000)
+        }
     }
     emailIpt.onchange = e =>{
         var trim = e.target.value.trim()
@@ -60,14 +203,88 @@
     userIpt.onchange = e =>{
         var trim = e.target.value.trim()
         userIpt.value = trim
-    }
-
-    //Check submit value if empty
-    form.onsubmit = (e) => {
-        if( emailIpt.value == '' || userIpt.value == '' || passIpt.value == '') {
-            e.preventDefault()
-            alert('Những trường * là bắt buộc')
+        if(userIpt.value.length < 8) {
+            userHelpBlock.classList.remove('hide')
+            userHelpBlock.style.color = 'red'
+        } else {
+            userHelpBlock.classList.add('hide')
         }
     }
+    prePass.onchange = e => {
+        var trim = e.target.value.trim()
+        prePass.value = trim
+        if(passIpt.value != prePass.value) {
+            prePasswordBlock.classList.remove('hide')
+            prePasswordBlock.style.color = 'red'
+        } else {
+            prePasswordBlock.classList.add('hide')
+        }
+    }
+
+    //Check Caps Lock is on
+    passIpt.addEventListener("keyup", (e) => {
+      if (e.getModifierState("CapsLock")) {
+        checkCapsLock.style.display = 'block'
+        setTimeout((
+            () => checkCapsLock.style.display = 'none'
+        ), 1000)
+      }
+    })
+
+    //Handle submit
+    form.onsubmit = (e) => {
+    //Check if validate password is true
+        if(validateError) {
+            e.preventDefault()
+        }
+    //Check if prePassword doesn't match password
+        if(prePass.value !== passIpt.value) {
+            e.preventDefault()
+            errorContent.textContent = 'Mật khẩu nhập lại không khớp'
+            modalError.style.display='block'
+            setTimeout((
+                () => modalError.style.display='none'
+            ), 1800)
+        }
+    //Check submit value if empty
+        if(emailIpt.value == '' || userIpt.value == '' || passIpt.value == '') {
+            e.preventDefault()
+            modalError.style.display='block'
+            setTimeout((
+                () => modalError.style.display='none'
+            ), 1500)
+        }
+    }
+
+    //Popup modal error if Email || Username already exist
+    {{#if accountExist}}
+        {{#if existUsername}}
+            errorContent.textContent = 'Tài khoản đã tồn tại'
+            modalError.style.display='block'
+            setTimeout((
+                () => modalError.style.display='none'
+            ), 1800)
+        {{else}}
+            {{#if existEmail}}
+                errorContent.textContent = 'Email đã tồn tại'
+                modalError.style.display='block'
+                setTimeout((
+                    () => modalError.style.display='none'
+                ), 1800)
+            {{/if}}
+        {{/if}}
+    //Popup modal success if Email || Username doesn't exist
+    {{else}}
+        {{#if preUser}}
+        modalSuccess.style.display='block'
+        setTimeout((
+            () => {
+                modalSuccess.style.display='none'
+                window.location.replace('/login')
+            }
+        ), 1800)
+        {{else}}
+        {{/if}}
+    {{/if}}
 
 </script>

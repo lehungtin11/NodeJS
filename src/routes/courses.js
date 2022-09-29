@@ -17,7 +17,7 @@ router.delete('/me/trash/:id', MeController.destroy)
 router.delete('/me/:id', MeController.delete)
 router.post('/reply', CoursesController.reply)
 router.post('/comment/:slug', CoursesController.comment)
-router.get('/:slug', middleware.auth, CoursesController.show)
+router.get('/:id', middleware.auth, CoursesController.show)
 router.get('/', CoursesController.index)
 
 module.exports = router

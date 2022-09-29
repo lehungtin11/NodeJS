@@ -8,15 +8,35 @@
     <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800&display=swap" rel="stylesheet">
     <title>MeTub - học lập trình để đi làm! | Học lập trình online</title>
 </head>
 <body>
     {{! "Parameter" use data from "username" to render data. Which template have header }}
     {{! In this case, data get from res.locals.username }}
     {{> header parameter=username avatar=avatar}}
-    <div class="container">{{{body}}}</div>
+    <div class="container body">
+        <div id="gotop"><i class="bi bi-arrow-up-square"></i></div>
+        {{{body}}}
+    </div>
     {{> footer}}
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<script>
+    //---------- Go Top button
+    const goTop = document.querySelector('#gotop')
+    window.addEventListener('scroll', (e) => {
+        if(window.scrollY > 200) {
+            goTop.style.display = 'block'
+        } else if(window.scrollY <= 10){
+            goTop.style.display = 'none'
+        }
+    })
+    goTop.onclick = () => {
+        window.scrollTo(0, 0)
+    }
+</script>
 </body>
 </html>

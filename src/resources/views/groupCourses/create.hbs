@@ -2,23 +2,30 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="d-flex align-items-center">
-                <h1 style="flex: 1 1">
-                    <i style="color: red" class="bi bi-hearts"></i>
-                    TẠO BÀI H<i id="emoji" style="color: orange" class="bi bi-emoji-smile"></i>C
+                <h1 style="flex: 1 1; color: #ff6957">
+                    <i class="bi bi-balloon-heart"></i>
+                    TẠO KHÓA HỌC
                 </h1>
-                <a href="/courses/me/manage" class="btn btn-dark">
+                <a
+                    href="/group-courses"
+                    style="background-color: #ff6957; border-color: #ff6957"
+                    class="btn btn-primary"
+                >
                     <i class="bi bi-folder"></i> Quản lý
                 </a>
             </div>
-            <form method="POST" action="./store">
+            <form
+                method="POST"
+                action=""
+            >
                 <div class="mb-3">
                     <label for="floatingSelect">
-                        Khoá học
+                        Khóa học thuộc loại
                     </label>
                     <div class="form-floating">
                         <select
                             required
-                            name="name"
+                            name="type"
                             class="form-select"
                             id="floatingSelect"
                             aria-label="Floating label select example"
@@ -26,11 +33,15 @@
                             <option value="" selected>
                                 Mở menu để chọn
                             </option>
-                            {{#each data}}
-                            <option value="{{this.name}}">
-                                {{this.title}}
+                            <option value="frontend">
+                                Front-End
                             </option>
-                            {{/each}}
+                            <option value="backend">
+                                Back-End
+                            </option>
+                            <option value="frontend, backend">
+                                Front-End &amp; Back-End
+                            </option>
                         </select>
                         <label for="floatingSelect">
                             Lựa chọn khoá học
@@ -39,7 +50,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">
-                        Tên bài học
+                        Tiêu đề khóa học
                     </label>
                     <input
                         type="text"
@@ -50,42 +61,40 @@
                     />
                 </div>
                 <div class="mb-3">
-                    <label for="desc" class="form-label">
-                        Mô tả bài học
-                    </label>
-                    <textarea
+                    <label
+                        for="desc"
+                        class="form-label"
+                        >Path khóa học</label>
+                        <textarea
                         type="text"
                         class="form-control"
                         id="desc"
-                        name="desc"
+                        name="name"
                         autocomplete="off"
                     ></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="videoId" class="form-label">
-                        videoId
-                    </label>
+                    <label
+                        for="videoId"
+                        class="form-label"
+                    >Thumbnail</label>
                     <input
                         type="text"
                         class="form-control"
                         id="videoId"
-                        name="videoId"
+                        name="thumbnail"
                         autocomplete="off"
                     />
                 </div>
-                <button type="submit" class="btn btn-dark fw-bold">
+                <button
+                    style="background-color: #ff6957; border-color:#ff6957"
+                    type="submit"
+                    class="btn btn-dark fw-bold"
+                >
                     <i class="bi bi-plus-square"></i>
-                    Tạo bài học
+                    Tạo khóa học
                 </button>
             </form>
         </div>
     </div>
 </div>
-
-<script>
-    const emoji = document.querySelector('#emoji')
-    //Set infinite loop emoji
-    setInterval(() => {
-        emoji.classList.toggle('bi-emoji-kiss')
-    },500)
-</script>

@@ -1,57 +1,112 @@
 <div class="container login-form" style="width: 400px;">
-  <span class="header-form mt-4">SIGN IN</span>
-  <hr>
-  <form method="POST" action="/login/submit" class="mt-4">
-    <div class="mb-3">
-      <label for="username" class="form-label">
-        <i class="bi bi-person"></i>
-        Username
-      </label>
-      <input type="text" class="form-control" id="username" name="username" autocomplete="off" value="{{preUsername}}">
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">
-        <i class="bi bi-lock"></i>
-        Password
-      </label>
-      <input type="password" class="form-control" id="password" name="password" value="{{prePassword}}">
-        <span class="visible-password mt-1">
-          <i class="bi bi-eye" onclick="showPw()">
-            Show Password
-          </i>
-          <a style="color: rgb(110, 110, 110)" href="#">Lost your Password?</a>
-        </span>
-      <span style="display: none" id="checkCapsLock" class="alert alert-danger" role="alert">WARNING! Caps lock is ON.</span>
-    </div>
-    <div class="form-text">
-          Don't have account?
-          <a href="/register">Register</a>
-    </div>
-    <button style="display: block; width: 100%" type="submit" class="btn btn-primary mt-3">Log in</button>
-  </form>
+    <span class="header-form mt-4">
+        CHÀO MỪNG BẠN TRỞ LẠI!
+    </span>
+    <hr>
+    <form
+        method="POST"
+        action="/login/submit"
+        class="mt-4"
+    >
+        {{!-- Username --}}
+        <div class="mb-3">
+            <label for="username" class="form-label">
+                <i class="bi bi-person"></i>
+                Tên tài khoản
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                autocomplete="off"
+                value="{{preUsername}}"
+            />
+        </div>
+        {{!-- Password --}}
+        <div class="mb-3">
+            <label for="password" class="form-label">
+                <i class="bi bi-lock"></i>
+                Mật khẩu
+            </label>
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                value="{{prePassword}}"
+            />
+            {{!-- Show/hide password & forget password --}}
+            <span class="visible-password mt-1">
+                <i class="bi bi-eye" onclick="showPw()">
+                    Hiển thị mật khẩu
+                </i>
+                <a style="color:rgb(110, 110, 110)" href="#">
+                    Quên mật khẩu?
+                </a>
+            </span>
+            {{!-- Warn caps lock --}}
+            <span
+                style="display: none"
+                id="checkCapsLock"
+                class="alert alert-danger"
+                role="alert"
+            >
+                CẢNH BÁO! Caps lock đang được bật.
+            </span>
+        </div>
+        <div class="form-text">
+            Bạn là người mới?
+            <a href="/register">
+                Đăng ký ngay
+            </a>
+        </div>
+        <button
+            style="display: block; width: 100%"
+            type="submit"
+            class="btn btn-primary mt-3"
+        >
+            Đăng nhập
+        </button>
+    </form>
 </div>
+{{!-- Hidden input --}}
 <div>
-  {{#with data}}
-      <input id="hiddenValue" type="hidden" value="{{username}}"/>
-  {{/with}}
+    {{#with data}}
+    <input
+        id="hiddenValue"
+        type="hidden"
+        value="{{username}}"
+    />
+    {{/with}}
 </div>
-
-{{!-- Modal alert --}}
-<div id="modal" style="display: none" class="Modal-Alert__content alert alert-success" role="alert">
-  <span style="font-weight: bold">
-  <i class="bi bi-check-circle-fill"></i>
-    Success!
-  </span>
-  Login successfully!!
+{{!-- Modal Success --}}
+<div
+    id="modal"
+    style="display: none"
+    class="Modal-Alert__content alert alert-success"
+    role="alert"
+>
+    <span style="font-weight: bold">
+        <i class="bi bi-check-circle-fill"></i>
+        Thành công!
+    </span>
+    Đăng nhập thành công!!
 </div>
-<div id="modal-error" style="display: none" class="Modal-Alert__content alert alert-danger" role="alert">
-  <span style="font-weight: bold">
-  <i class="bi bi-exclamation-octagon-fill"></i>
-    Error!
-  </span>
-  <span id="error-content">
-    Username or Password not found!!
-  </span>
+{{!-- Modal Error --}}
+<div
+    id="modal-error"
+    style="display: none"
+    class="Modal-Alert__content alert alert-danger"
+    role="alert"
+>
+    <span style="font-weight: bold">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+        Lỗi!
+    </span>
+    <span id="error-content">
+        Tài khoản hoặc mật khẩu không tồn tại!!
+    </span>
 </div>
 
 <script>
@@ -65,11 +120,11 @@
 
     //Visible password 
     function showPw() {
-      if(passIpt.type == 'password') {
-        passIpt.type = 'text'
-      } else {
-        passIpt.type = 'password'
-      }
+        if(passIpt.type == 'password') {
+            passIpt.type = 'text'
+        } else {
+            passIpt.type = 'password'
+        }
     }
 
     //Stop space action on keyboard
@@ -91,40 +146,39 @@
 
     //Check Caps Lock is on
     passIpt.addEventListener("keyup", (e) => {
-      if (e.getModifierState("CapsLock")) {
-        checkCapsLock.style.display = 'block'
-        setTimeout((()=>
-        checkCapsLock.style.display = 'none'
-        ),1000)
-      }
+        if (e.getModifierState("CapsLock")) {
+            checkCapsLock.style.display = 'block'
+            setTimeout((()=>
+                checkCapsLock.style.display = 'none'
+            ),1000)
+        }
     })
 
     //Check submit value if empty
     form.onsubmit = (e) => {
         if( userIpt.value == '' || passIpt.value == '') {
             e.preventDefault()
-            modalError.querySelector('#error-content').textContent='Username or Password is required'
+            modalError.querySelector('#error-content').textContent='Tài khoản hoặc mật khẩu không được để trống'
             modalError.style.display='block'
-            setTimeout((
-            () => modalError.style.display='none'
-          ), 1500)
+            setTimeout((() => modalError.style.display='none'
+            ), 1500)
         }
     }
     
-    //Popup modal success
+    //Popup modal succes||error
     (function () {
-      if(popup) {
-        if(popup.value == '' || popup.value == 'not found') {
-          modalError.style.display='block'
-          setTimeout((
-            () => modalError.style.display='none'
-          ), 1500)
-        } else {
-          modal.style.display='block'
-          setTimeout((
-            () => window.location.replace('/')
-          ), 1500)
+        if(popup) {
+            if(popup.value == '' || popup.value == 'not found') {
+                modalError.style.display='block'
+                setTimeout((
+                    () => modalError.style.display='none'
+                ), 1500)
+            } else {
+                modal.style.display='block'
+                setTimeout((
+                    () => window.location.replace('/')
+                ), 1500)
+            }
         }
-      }
     })()
 </script>

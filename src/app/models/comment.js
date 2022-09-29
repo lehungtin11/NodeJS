@@ -7,7 +7,7 @@ const comment = new Schema({
   avatar: {type: String},
   username: {type: String},
   content: {type: String},
-  slug: {type: String},
+  courseId: {type: String}, //Remember to change this field
   reply: [],
   }, {
     timestamps: true

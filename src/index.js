@@ -53,6 +53,9 @@ app.engine('.hbs', hbs.create({
         // Note to fix this hardcode later
         ( user == 'Lehungtin11' ) ? true : false
       )
+    },
+    isEqual(rootUser, currentUser) {
+      return ((rootUser == currentUser) ? true : false)
     }
   }
 }).engine);

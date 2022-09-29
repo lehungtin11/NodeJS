@@ -1,29 +1,93 @@
-{{#with data}}
 <div class="mt-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <form method="POST" action="/courses/updated?slug={{slug}}&_method=PUT">
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" autocomplete="off"
-              value="{{name}}"
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {{#with data}}
+            <form
+                method="POST"
+                action="/courses/updated?slug={{_id}}&_method=PUT"
             >
-          </div>
-          <div class="mb-3">
-            <label for="desc" class="form-label">Description</label>
-            <textarea type="text" class="form-control" id="desc" name="desc"
-              
-            >{{desc}}</textarea>
-          </div>
-          <div class="mb-3">
-            <label for="videoId" class="form-label">videoId</label>
-            <input type="text" class="form-control" id="videoId" name="videoId"
-              value="{{videoId}}"
-            >
-          </div>
-          <button type="submit" class="btn btn-dark fw-bold">Cập nhật</button>
-      </form>
+            {{/with}}
+                <div class="mb-3">
+                    <label for="floatingSelect">
+                        Khoá học
+                    </label>
+                    <div class="form-floating">
+                        <select
+                            required
+                            name="name"
+                            class="form-select"
+                            id="floatingSelect"
+                        >
+                            {{#with data}}
+                            <option data="{{name}}" value="">
+                                Mở menu để chọn
+                            </option>
+                            {{/with}}
+                            {{#each group}}
+                            <option value="{{this.name}}">
+                                {{this.title}}
+                            </option>
+                            {{/each}}
+                        </select>
+                        <label for="floatingSelect">
+                            Lựa chọn khoá học
+                        </label>
+                    </div>
+                </div>
+              {{#with data}}
+                <div class="mb-3">
+                    <label for="title" class="form-label">
+                        Tên bài học
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        autocomplete="off"
+                        value="{{title}}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="desc" class="form-label">
+                        Mô tả bài học
+                    </label>
+                    <textarea
+                        type="text"
+                        class="form-control"
+                        id="desc"
+                        name="desc"
+                    >{{desc}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="videoId" class="form-label">
+                        videoId
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="videoId"
+                      name="videoId"
+                      value="{{videoId}}"
+                    />
+                </div>
+                <button type="submit" class="btn btn-dark fw-bold">
+                    <i class="bi bi-pencil-square"></i>
+                    Cập nhật
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
-{{/with}}
+    {{/with}}
+<script>
+    const courseData = document.querySelector('option[value=""]')
+    const options = document.querySelectorAll('option[value]:not(:first-child)') //Select all "Option" except first child
+  
+    //Set "Option" which have the same data to "Selected"
+    options.forEach(option => {
+        if(option.value == courseData.getAttribute('data')) {
+            option.setAttribute('Selected','Selected')
+        }
+    })
+</script>

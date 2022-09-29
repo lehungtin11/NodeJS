@@ -5,6 +5,8 @@ const loginRouter = require('./login')
 const logoutRouter = require('./logout')
 const registerRouter = require('./register')
 const settingRouter = require('./setting')
+const groupRouter = require('./groupCourses')
+const notFoundRouter = require('./notFound')
 
 function route (app) {
     // MiddleWare: Get username from session and assign to res.locals
@@ -19,7 +21,12 @@ function route (app) {
     app.use('/login', loginRouter)
     app.use('/register', registerRouter)
     app.use('/blog',blogRouter)
+    app.use('/group-courses',groupRouter)   
     app.use('/courses',coursesRouter)
+    app.use('/not-found',notFoundRouter)
+    app.use('/:slug', (req, res, next) => {
+        res.redirect('not-found')
+    })
     app.use('/', siteRouter)
 }
 

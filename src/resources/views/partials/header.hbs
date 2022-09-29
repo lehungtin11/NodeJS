@@ -1,65 +1,190 @@
-  <nav id="myHeader" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div style="width: 100%" class="d-flex justify-content-between mx-4">
-
-      {{!-- Logo & Title --}}
-      <a class="navbar-brand" href="/">
-        <img style="height: 38px; width: 38px" src="/img/logo.png" alt="logo" />
-        <span style="font-weight: bold">MeTub</span> | Học Lập Trình
-      </a>
-      
-      <input style="border: none; margin: auto 0 auto -10%; width: 35%; border-radius: 999px; " class="form-control" type="text" placeholder="Tìm kiếm khoá học...">
-
-      {{!-- Drop down list --}}
-      <div style="flex-grow: 0" class="collapse justify-content-end navbar-collapse" id="navbarNavDarkDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            {{#if parameter}}
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img
-            {{#if avatar}}
-                src="https://yt3.ggpht.com/ytc/{{avatar}}"
-            {{else}}
-                src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
-            {{/if}}
-                alt="avatar-user"
-                class="avatar-user"
-              />
-              <span style="font-weight: bold">{{parameter}}</span>
-            </a>
-            {{else}}
+<nav id="myHeader" class="navbar navbar-expand-lg">
+    <div style="width: 100%" class="d-flex align-items-center mx-4">
+        {{!-- Logo & Title --}}
+        <a style="flex: 1 1" class="navbar-brand" href="/">
+            <img
+                style="height: 38px; width: 38px"
+                src="/img/logo.png"
+                alt="logo"
+            />
+            <span class="company-name">
+                MeTub
+            </span>
+            <span>
+                | Học Lập Trình
+            </span>
+        </a>
+        {{!-- Header Search Form --}}
+        <form
+            method="POST"
+            action=" "
+            style="flex: 1 1"
+            class="d-flex align-items-center justify-content-center"
+        >
             <div>
-              <a class="btn btn-primary" href="/login">Log in</a>
+                <div
+                    style="flex: 1 1"
+                    class="search-wrapper justify-content-center"
+                >
+                    <span
+                        class="search-icon d-flex justify-content-center align-items-center"
+                    >
+                        <i class="bi bi-search"></i>
+                    </span>
+                    {{!-- Header Search Input --}}
+                    <input
+                        type="text"
+                        name="search"
+                        id="search-input"
+                        style="font-size: .9rem"
+                        class="header-search"
+                        placeholder="Tìm kiếm khoá học, bài viết, video, ..."
+                        autocomplete="off"
+                    />
+                </div>
             </div>
-            {{/if}}
-            <ul class="dropdown-menu dropdown-menu-dark">
-            {{#if (isAdmin username)}}
-              <li>
-                <a class="nav-link" aria-current="page" href="/courses/me/manage">Manage Course</a>
-              </li>
-              <li>
-                <a class="nav-link" aria-current="page" href="/courses/create">Create Course</a>
-              </li>
-               <li><hr class="dropdown-divider"></li>
-              {{/if}}
-              {{#if parameter}}
-              <li>
-                <a class="nav-link" href="/setting">Account Setting</a>
-              </li>
-               <li><hr class="dropdown-divider"></li>
-              {{/if}}
-              <li>
-                <a class="nav-link" href="/blog">Blog</a>
-              </li>
-              <li>
-                <a class="nav-link" href="/courses">Courses</a>
-              </li>
-               <li><hr class="dropdown-divider"></li>
-              <li>
-                <a class="nav-link" href="/logout">Logout</a>
-              </li>
+        </form>
+
+        {{!-- Drop down list --}}
+        <div
+            style="flex: 1 1"
+            class="collapse justify-content-end navbar-collapse"
+            id="navbarNavDarkDropdown"
+        >
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    {{#if parameter}}
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#" role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <img
+                            {{#if avatar}}
+                            src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                            {{else}}
+                            src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                            {{/if}}
+                            alt="avatar-user"
+                            class="avatar-user"
+                        />
+                    </a>
+                    {{else}}
+                    <div>
+                        <a class="btn btn-primary" href="/login">
+                            Đăng nhập
+                        </a>
+                    </div>
+                    {{/if}}
+                    <ul class="dropdown-menu dropdown-menu-light">
+                        {{#if parameter}}
+                        <div class="d-flex align-items-center">
+                            <img
+                                {{#if avatar}}
+                                src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                                {{else}}
+                                src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                                {{/if}}
+                                alt="avatar-user"
+                                class="avatar-user-2"
+                            />
+                            <div style="margin-left: 12px" class="d-flex flex-column justify-content-center">
+                                <div style="font-weight: 600">
+                                    {{parameter}}
+                                </div>
+                                <div
+                                    style="color: #666; font-size: small"
+                                >
+                                    {{#if (isAdmin username) }}@Administrator{{else}}@User{{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {{#if (isAdmin username)}}
+                        <li>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="/courses/me/manage"
+                            >Quản lý bài học</a>
+                        </li>
+                        <li>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="/group-courses"
+                            >
+                                Quản lý Khóa học
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="/courses/create"
+                            >
+                                Tạo bài học
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="/group-courses/create"
+                            >
+                                Tạo khóa học
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {{/if}}
+                        {{#if parameter}}
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="/setting"
+                            >
+                                Trang cá nhân
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {{/if}}
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="/blog"
+                            >
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="/logout"
+                            >
+                                Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-          </li>
-        </ul>
-      </div>
+        </div>
     </div>
-  </nav>
+</nav>
+<script>
+    const form = document.forms[0]
+    const search = document.querySelector('#search-input')
+    search.onchange=(e) => {
+        alert('Chức năng tìm kiếm đang trong quá trình phát triển')
+    }
+</script>

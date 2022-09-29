@@ -5,8 +5,8 @@ class MeController {
 
     // [PUT] /courses/updated
     updated(req, res, next) {
-        req.body.slug = req.body.name;
-        MyModel.updateOneWithDeleted({slug: req.query.slug}, req.body, function(err) {
+        req.body.slug = req.body.videoId;
+        MyModel.updateOneWithDeleted({_id: req.query.slug}, req.body, function(err) {
             if(err) return console.log(err)
         })
         res.redirect('/courses/me/manage')
