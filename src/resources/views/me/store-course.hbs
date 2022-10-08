@@ -20,7 +20,7 @@
                     </a>
                 </th>
                 <th scope="col">
-                    Mô tả bài học
+                    VideoId
                 </th>
                 <th scope="col">
                     Khoá học
@@ -49,7 +49,15 @@
                     {{this.title}}
                 </td>
                 <td>
-                    {{this.desc}}
+                    <div class="d-flex flex-column">
+                        {{this.videoId}}
+                        <img
+                            style="border-radius: 16px; height: 100px; object-fit: cover;"
+                            src="https://i.ytimg.com/vi/{{this.videoId}}/maxresdefault.jpg"
+                            class="card-img-top"
+                            alt="{{this.title}}"
+                        />
+                    </div>
                 </td>
                 <td>
                     {{this.name}}

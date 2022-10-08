@@ -94,7 +94,7 @@
                 {{#each comment}}
                 <div
                     style="margin-bottom: 16px;"
-                    class="d-flex"
+                    class="d-flex comment-block__item"
                 >
                     <span class="avatar me-2 mb-2">
                         <img
@@ -116,6 +116,7 @@
                         >
                             PHẢN HỒI
                         </span>
+                        
                         {{!-- Reply input --}}
                         <div class="hide reply-input">
                             <div class="d-flex mt-2">
@@ -188,26 +189,7 @@
                                         <span>
                                             {{this.username}}
                                         </span>
-                                        {{!-- <li>{{this.content}}</li> --}}
-                                        {{#if true}}
-                                        <textarea
-                                            required
-                                            autocomplete="off"
-                                            name="content"
-                                            class="comment-block-input__text-input"
-                                            id="test-text"
-                                            placeholder="Phản hồi..."
-                                        >{{this.content}} </textarea>
-                                        <div class="d-flex mt-2">
-                                            <button
-                                                type="submit"
-                                                class="btn btn-primary primary"
-                                                id="submit"
-                                            >
-                                                Sửa
-                                            </button>
-                                        </div>
-                                        {{/if}}
+                                        <li>{{this.content}}</li>
                                         <span class="reply-btn-2">
                                             PHẢN HỒI
                                         </span>
@@ -225,9 +207,11 @@
                                                     </li>
                                                     <li>
                                                         <i class="bi bi-trash"></i>
-                                                        <span>
-                                                            Xóa
-                                                        </span>
+                                                        <a href="/courses/reply/delete?commentId={{this.comment}}&replyId={{this._id}}">
+                                                            <span>
+                                                                Xóa
+                                                            </span>
+                                                        </a>
                                                     </li>
                                                 {{else}}
                                                     <li style="margin-top: 4px">
@@ -293,6 +277,34 @@
                             </div>
                         </p>
                     </div>
+                    <div class="comment-option">
+                        <i class="bi bi-three-dots-vertical"></i>
+                        <div class="hide">
+                            <ul class="comment-option__item d-flex flex-column justify-content-between">
+                                {{#if (isEqual @root.username this.username)}}
+                                    <li>
+                                        <i class="bi bi-pen"></i>
+                                        <span>
+                                            Chỉnh sửa
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-trash"></i>
+                                        <span>
+                                            Xóa
+                                        </span>
+                                    </li>
+                                {{else}}
+                                    <li style="margin-top: 4px">
+                                        <i class="bi bi-flag"></i>
+                                        <span>
+                                            Báo vi phạm
+                                        </span>
+                                    </li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 {{/each}}
             </div>
@@ -302,6 +314,15 @@
         <div class="col-lg-4">
             {{#if current}}
             {{#with currentVi}}
+            <a
+                id="btn-back"
+                href="/courses?category={{name}}"
+                style="background-color: #ff5369; border-color: #ff5369"
+                class="btn btn-primary w-100 mb-3"
+            >
+                <i class="bi bi-arrow-left"></i>
+                Trở về khóa học
+            </a>
             <input
                 id="currentVideo"
                 type="hidden"
@@ -381,13 +402,22 @@
         const replyComment2 = document.querySelectorAll('div[class="hide reply-block-2"]');
         const replyInput = document.querySelectorAll('div[class="hide reply-input"]');
         const totalReply = document.querySelectorAll('p[class="total-reply"]');
+        const commentOption = document.querySelectorAll('.comment-option');
         const replyOption = document.querySelectorAll('.reply-option');
-        const listVideoTitle = document.querySelectorAll('.list-video-title')
-        const currentVideo = document.querySelector('#currentVideo')
+        const listVideoTitle = document.querySelectorAll('.list-video-title');
+        const currentVideo = document.querySelector('#currentVideo');
+        const replyItem = document.querySelectorAll('.reply-option__item');
+        
+        //Show option tools when hover on reply
+        replyItem.forEach((item, index) => {
+            item.addEventListener('mouseover', (e) => {
+                item[index].style.display = 'block'
+            })
+        })
 
         //Check if current Video match list suggest video then high light video
         listVideoTitle.forEach((item, index) => {
-            if(item.textContent == currentVideo.value) {
+            if(item.innerText == currentVideo.value) {
                 item.parentNode.parentElement.style.backgroundColor = 'rgba(0,0,0,0.1)'
             }
         })
@@ -438,6 +468,14 @@
                     inline: 'center'
                 });
 
+            })
+        })
+
+        //Show option tools when hover on Comment
+        commentOption.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                const hide = commentOption[index].querySelector('div')
+                hide.classList.toggle('hide')
             })
         })
 

@@ -358,25 +358,30 @@ body {
     margin-bottom: 8px
 }
 // ---------- Reply Options ----------
-.reply-block__item {
+.reply-block__item,
+.comment-block__item {
     margin-bottom: 8px;
 }
 
+.comment-block__item:hover > .comment-option ,
 .reply-block__item:hover > .reply-option {
     display: block;
 }
 
-.reply-option {
+.reply-option,
+.comment-option {
     position: relative;
     display: none;
     cursor: pointer;
 }
 
-.reply-option .bi {
+.reply-option .bi,
+.comment-option .bi {
     font-size: 1.2rem;
 }
 
-.reply-option__item {
+.reply-option__item,
+.comment-option__item {
     position: absolute;
     cursor: default;
     min-height: 60px;
@@ -388,6 +393,7 @@ body {
     border-radius: 4px;
     padding: 8px 0;
     white-space: nowrap;
+    z-index: 1;
 
     & li{
         display: flex;
@@ -503,7 +509,10 @@ body {
 
 .link-text {
     text-decoration: none;
-    color: currentColor
+    color: currentColor;
+    &:hover {
+        color: currentColor;
+    }
 }
 
 .slide-show__button {

@@ -73,6 +73,23 @@ class CoursesController {
             res.redirect('back')
         }
 
+    // [DELETE] /courses/reply/delete
+        deleteReply(req, res, next) {
+            const commentId = req.query.commentId;
+            const replyId = req.query.replyId;
+            CommentModel.find({_id: commentId})
+            .then((data) => {
+                data[0].reply.map(async (dat, index) => {
+                    if(dat._id == replyId) {
+                        data[0].reply.splice(index, 1)
+                        await CommentModel().save()
+                        return res.redirect('back')
+                    }
+                })
+            })
+            .catch()
+        }
+
     // [GET] /courses/create
     create(req, res, next) {
         GroupCourses.find()

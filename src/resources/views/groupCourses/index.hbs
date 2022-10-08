@@ -1,7 +1,7 @@
 <form
     method="POST"
     id="function-form"
-    action="/courses/me/deletemany?_method=DELETE"
+    action="/group-courses/me/deletemany?_method=DELETE"
 >
     <table class="table">
         <thead>
@@ -20,13 +20,13 @@
                     </a>
                 </th>
                 <th scope="col">
-                    Mô tả khóa học
+                    Thumbnail
                 </th>
                 <th scope="col">
                     Khoá học
                 </th>
                 <th scope="col">
-                    Thời gian tạo
+                    Khóa học thuộc loại
                 </th>
                 <th></th>
             </tr>   
@@ -49,13 +49,21 @@
                     {{this.title}}
                 </td>
                 <td>
-                    {{this.desc}}
+                    <div class="d-flex flex-column">
+                        {{this.thumbnail}}
+                        <img
+                            style="border-radius: 16px; height: 100px; object-fit: cover"
+                            class="card-img-top"
+                            src="https://files.fullstack.edu.vn/f8-prod/courses/{{this.thumbnail}}"
+                            alt="{{this.name}}"
+                        />
+                    </div>
                 </td>
                 <td>
                     {{this.name}}
                 </td>
                 <td>
-                    {{this.createdAt}}
+                    {{this.type}}
                 </td>
                 <td>
                     <a
@@ -67,7 +75,7 @@
                     </a>
                     <a
                         href=""
-                        class="btn btn-danger mt-2"
+                        class="btn btn-danger"
                         data-bs-toggle="modal"
                         data-id="{{this._id}}"
                         data-bs-target="#delete-modal"
@@ -100,7 +108,7 @@
                 </a>
             </div>
             <div class="col-lg-2" style="padding-left: 80px">
-                <a href="/courses/me/trash" class="btn btn-secondary" >
+                <a href="/group-courses/me/trash" class="btn btn-secondary" >
                     <i class="bi bi-trash3-fill"></i>
                     ({{deleteCount}})
                 </a>
@@ -135,7 +143,7 @@
                     {{#if (handlePagination (sum currentPage -1) totalPage)}}
                     <li class="page-item">
                         <a
-                            href="/courses/me/manage?page=1"
+                            href="/group-courses?page=1"
                             class="page-link"
                         >
                             Trang đầu
@@ -144,14 +152,14 @@
                     <li class="page-item">
                         <a
                             class="page-link"
-                            href="/courses/me/manage?page={{handlePagination (sum currentPage -1) totalPage}}"
+                            href="/group-courses?page={{handlePagination (sum currentPage -1) totalPage}}"
                         >
                             {{handlePagination (sum currentPage -1) totalPage}}
                         </a>
                     </li>
                     {{else}}
                     <li class="page-item disabled">
-                        <a class="page-link" href="/courses/me/manage">
+                        <a class="page-link" href="/group-courses">
                             Trang đầu
                         </a>
                     </li>
@@ -165,7 +173,7 @@
                     <li class="page-item">
                         <a
                             class="page-link"
-                            href="/courses/me/manage?page={{handlePagination (sum currentPage 1) totalPage}}"
+                            href="/group-courses?page={{handlePagination (sum currentPage 1) totalPage}}"
                         >
                             {{handlePagination (sum currentPage 1) totalPage}}
                         </a>
@@ -173,14 +181,14 @@
                     <li class="page-item">
                         <a
                             class="page-link"
-                            href="/courses/me/manage?page={{totalPage}}"
+                            href="/group-courses?page={{totalPage}}"
                         >
                             Trang cuối
                         </a>
                     </li>
                     {{else}}
                     <li class="page-item disabled">
-                        <a class="page-link" href="/courses/me/manage">
+                        <a class="page-link" href="/group-courses">
                             Trang cuối
                         </a>
                     </li>
@@ -299,7 +307,7 @@
 
         //{{!-- Confirm delete --}}
         btnConfirm.addEventListener('click', () => {
-            form.action=`/courses/me/${btnId}?_method=DELETE`
+            form.action=`/group-courses/me/${btnId}?_method=DELETE`
             form.submit()
         })
     });
