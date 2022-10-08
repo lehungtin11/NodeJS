@@ -27,7 +27,8 @@ app.use(session({
   secret: process.env.SECRET_KEY,
   resave: true,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/educations' })
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://lehungtin11:1234@cluster0.37hj6ra.mongodb.net/educations' })
+  
 }));
 
 // Http logger
