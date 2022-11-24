@@ -4,40 +4,26 @@
             {{#with data}}
             <form
                 method="POST"
-                action="/courses/updated?slug={{_id}}&_method=PUT"
+                action="/group-courses/updated?slug={{_id}}&_method=PUT"
             >
             {{/with}}
+              {{#with data}}
                 <div class="mb-3">
                     <label for="floatingSelect">
                         Khoá học
                     </label>
-                    <div class="form-floating">
-                        <select
-                            required
-                            name="name"
-                            class="form-select"
-                            id="floatingSelect"
-                        >
-                            {{#with data}}
-                            <option data="{{name}}" value="">
-                                Mở menu để chọn
-                            </option>
-                            {{/with}}
-                            {{#each group}}
-                            <option value="{{this.name}}">
-                                {{this.title}}
-                            </option>
-                            {{/each}}
-                        </select>
-                        <label for="floatingSelect">
-                            Lựa chọn khoá học
-                        </label>
-                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        autocomplete="off"
+                        value="{{name}}"
+                    />
                 </div>
-              {{#with data}}
                 <div class="mb-3">
                     <label for="title" class="form-label">
-                        Tên bài học
+                       Tên khóa học
                     </label>
                     <input
                         type="text"
@@ -49,33 +35,33 @@
                     />
                 </div>
                 <div class="mb-3">
-                    <label for="desc" class="form-label">
-                        Mô tả bài học
+                    <label for="type" class="form-label">
+                        Khóa học thuộc loại
                     </label>
-                    <textarea
+                    <input
                         type="text"
                         class="form-control"
-                        id="desc"
-                        name="desc"
-                    >{{desc}}</textarea>
+                        id="type"
+                        name="type"
+                        value="{{type}}"/>
                 </div>
                 <div class="mb-3">
-                    <label for="videoId" class="form-label">
-                        videoId
+                    <label for="thumbnail" class="form-label">
+                        Thumbnail
                     </label>
                     <div class="d-flex">
                         <img
                             style="border-radius: 16px; height: 120px; object-fit: cover;"
-                            src="https://i.ytimg.com/vi/{{this.videoId}}/maxresdefault.jpg"
+                            src="https://files.fullstack.edu.vn/f8-prod/courses/{{thumbnail}}"
                             class="card-img-top"
-                            alt="{{this.title}}"
+                            alt="{{thumbnail}}"
                         />
                         <input
                           type="text"
                           class="form-control"
-                          id="videoId"
-                          name="videoId"
-                          value="{{videoId}}"
+                          id="thumbnail"
+                          name="thumbnail"
+                          value="{{thumbnail}}"
                         />
                     </div>
                 </div>
@@ -88,14 +74,3 @@
     </div>
 </div>
     {{/with}}
-<script>
-    const courseData = document.querySelector('option[value=""]')
-    const options = document.querySelectorAll('option[value]:not(:first-child)') //Select all "Option" except first child
-  
-    //Set "Option" which have the same data to "Selected"
-    options.forEach(option => {
-        if(option.value == courseData.getAttribute('data')) {
-            option.setAttribute('Selected','Selected')
-        }
-    })
-</script>

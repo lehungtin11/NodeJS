@@ -18,6 +18,27 @@
     {{! In this case, data get from res.locals.username }}
     {{> header parameter=username avatar=avatar}}
     <div class="container body">
+        {{!-- <div id="chatBox" class="hide">
+            <div id="box-header" class="chatBox__header d-flex justify-content-between">
+                <span class="chatBox__header-content">Tán gẫu</span>
+                <i class="bi bi-dash-lg chatBox__header-icon"></i>
+            </div>
+            <div class="chatBox__content">
+                <div class="wrapper-content">
+                    <p class="user-name">
+                        Administrators
+                    </p>
+                    <p class="message">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente deleniti id blanditiis eos corporis nostrum! Tenetur vero id ipsa ipsam quos sed explicabo nemo omnis! Inventore a molestias doloribus neque.
+                    </p>
+                </div>
+            </div>
+            <div class="chatBox__input">
+                <input type="text" placeholder="Aa">
+                <span><i class="bi bi-send-fill"></i></span>
+            </div>
+        </div>
+        <div id="chat"><i class="bi bi-messenger"></i></div> --}}
         <div id="gotop"><i class="bi bi-arrow-up-square"></i></div>
         {{{body}}}
     </div>
@@ -27,6 +48,9 @@
 <script>
     //---------- Go Top button
     const goTop = document.querySelector('#gotop')
+    const chat = document.querySelector('#chat')
+    const chatBox = document.querySelector('#chatBox')
+    const boxHeader = document.querySelector('#box-header')
     window.addEventListener('scroll', (e) => {
         if(window.scrollY > 200) {
             goTop.style.display = 'block'
@@ -34,6 +58,14 @@
             goTop.style.display = 'none'
         }
     })
+
+    boxHeader.onclick = () => {
+        chatBox.classList.toggle('hide')
+    }
+
+    chat.onclick = () => {
+        chatBox.classList.toggle('hide')
+    }
     goTop.onclick = () => {
         window.scrollTo(0, 0)
     }

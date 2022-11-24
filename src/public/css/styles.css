@@ -6,14 +6,103 @@ body {
   color: #fff;
   background-color: #ff6957; }
 
+#chatBox {
+  position: fixed;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  background-color: #FFF;
+  height: 70%;
+  width: 25%;
+  z-index: 3;
+  font-size: 2.6rem;
+  right: 1%;
+  bottom: 5%;
+  transition: all .3s ease 0s; }
+
+.chatBox__header {
+  color: #1c1e21;
+  cursor: pointer;
+  padding: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  height: 8%; }
+
+.chatBox__header-content {
+  margin-left: 12px;
+  font-size: 1.2rem; }
+
+.chatBox__header-icon {
+  margin-right: 12px;
+  font-size: 1.2rem; }
+
+.chatBox__content {
+  height: 78%;
+  overflow: scroll;
+  margin-top: 12px; }
+
+.user-name {
+  font-size: 18px;
+  margin: 0 0 0 12px; }
+
+.message {
+  margin: 2px 12px 12px 12px;
+  padding: 8px;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: #f0f2f5; }
+
+.chatBox__input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px; }
+  .chatBox__input input {
+    padding: 0 4px;
+    color: #1c1e21;
+    outline: none;
+    border: none;
+    background-color: #f0f2f5;
+    border-radius: 999px;
+    height: 40px;
+    width: 100%;
+    font-size: 14px; }
+  .chatBox__input span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 2px 0 8px;
+    cursor: pointer; }
+  .chatBox__input i {
+    font-size: 24px;
+    transition: all .2s ease 0s; }
+    .chatBox__input i:hover {
+      color: #ff6957; }
+
+#chat {
+  position: fixed;
+  display: block;
+  color: #0d6efd;
+  z-index: 1;
+  font-size: 2.6rem;
+  right: 4%;
+  bottom: 5%;
+  cursor: pointer;
+  opacity: .525;
+  transition: all .3s ease 0s; }
+  #chat:hover {
+    opacity: 1;
+    color: #0d6efd;
+    transition: all .3s ease 0s; }
+
 #gotop {
   position: fixed;
   display: none;
   color: #ff6957;
-  z-index: 99;
+  z-index: 2;
   font-size: 2.6rem;
   right: 4%;
-  bottom: 10%;
+  bottom: 15%;
   cursor: pointer;
   opacity: .525;
   transition: all .3s ease 0s; }

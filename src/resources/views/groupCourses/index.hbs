@@ -67,7 +67,7 @@
                 </td>
                 <td>
                     <a
-                        href="/courses/update?slug={{this._id}}"
+                        href="/group-courses/update?slug={{this._id}}"
                         class="btn btn-primary"
                     >
                         Sửa
@@ -108,7 +108,7 @@
                 </a>
             </div>
             <div class="col-lg-2" style="padding-left: 80px">
-                <a href="/group-courses/me/trash" class="btn btn-secondary" >
+                <a href="/group-courses/trash-bin" class="btn btn-secondary" >
                     <i class="bi bi-trash3-fill"></i>
                     ({{deleteCount}})
                 </a>
@@ -307,7 +307,7 @@
 
         //{{!-- Confirm delete --}}
         btnConfirm.addEventListener('click', () => {
-            form.action=`/group-courses/me/${btnId}?_method=DELETE`
+            form.action=`/group-courses/soft-delete/${btnId}?_method=DELETE`
             form.submit()
         })
     });

@@ -1,6 +1,26 @@
-<h1>
-    Trang cá nhân
-</h1>
-<p style="font-size: 1.1rem">
-    Xin chào {{username}} !!
-</p>
+<div class="col-lg-10 mt-4">
+    <h2 class="mb-4">Cài đặt</h2>
+    <h3>Thông tin cá nhân</h3>
+    <hr>
+    <div class="d-flex">
+        <h5>Username:</h5>
+        <p class="ms-2">{{username}}</p>
+    </div>
+    <div class="d-flex">
+        <h5>Avatar:</h5>
+        <img
+            {{#if avatar}}
+            src="https://yt3.ggpht.com/ytc/{{avatar}}"
+            {{else}}
+            src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+            {{/if}}
+            alt="avatar-user"
+            class="avatar-user ms-2"
+        />
+    </div>
+    <div class="d-flex align-items-center">
+        <h5>Password:</h5>
+        <button class="btn btn-primary ms-2">Đổi mật khẩu</button>
+    </div>
+</div>
+<div class="col-lg-2"></div>
