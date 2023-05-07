@@ -18,9 +18,9 @@
                 <button
                     type="button"
                     data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide-to="0"
                     class="active"
                     aria-current="true"
+                    data-bs-slide-to="0"
                     aria-label="Slide 1"
                 ></button>
                 <button
@@ -35,10 +35,47 @@
                     data-bs-slide-to="2"
                     aria-label="Slide 3"
                 ></button>
+                <button
+                    type="button"
+                    data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide-to="3"
+                    aria-label="Slide 4"
+                ></button>
             </div>
             <div class="carousel-inner">
                 <div
                     class="carousel-item active"
+                    data-bs-interval="5000"
+                >
+                    <img
+                        class="first-slide-img"
+                        src="https://files.fullstack.edu.vn/f8-prod/banners/20/6308a6bf603a4.png"
+                        alt="First pro slide"
+                    />
+                    <div class="first-slide-content">
+                        <div class="d-flex flex-column align-items-start">
+                            <a class="link-text" href="payment/htmlcss">
+                                <h2 style="font-weight: 700">
+                                    Khóa học HTML CSS Pro
+                                    <span>
+                                        <img src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg" alt="crowPro">
+                                    </span>
+                                </h2>
+                            </a>
+                            <p style="text-align:left">
+                                Đây là khóa học đầy đủ và chi tiết nhất bạn có thể tìm thấy được ở trên Internet!
+                            </p>
+                            <a
+                                href="payment/htmlcss"
+                                class="slide-show__button"
+                            >
+                                Tìm hiểu thêm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="carousel-item"
                     data-bs-interval="5000"
                 >
                     <img
@@ -70,7 +107,7 @@
                     <img
                         class="first-slide-img"
                         src="img/Nodejs-banner.png"
-                        alt="Secon slide"
+                        alt="Second slide"
                     />
                     <div class="first-slide-content">
                         <a
@@ -193,6 +230,131 @@
         </div>
 
         {{!-- Roadmap --}}
+        {{!-- Pro Courses --}}
+        <div class="mt-4 ms-4">
+            <h1>
+                <span style="font-size: 1.6rem; font-weight: 1000">
+                    Khóa học Pro
+                    <span
+                        style="background-color:#0d6efd;"
+                        class="badge badge-primary"
+                    >
+                        Mới
+                    </span>
+                </span>
+            </h1>
+            <div class="row d-flex flex-row mt-4">
+                {{!-- Start Loop here --}}
+                <div class="col-lg-3 card border-0" >
+                    <a
+                        href="/payment/htmlcss"
+                        class="home-courses-thumbnail"
+                    >
+                        <img
+                            style="border-radius: 16px"
+                            class="card-img-top"
+                            src="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
+                            alt="htmlCssPro"
+                        />
+                    </a>
+                    <div
+                        style="padding-left: 0; padding-top: 8px; font-weight: 600"
+                        class="card-body"
+                    >
+                        <a
+                            href="/payment/htmlcss"
+                            style="text-decoration: none; margin-bottom: 4px"
+                            class="card-text"
+                        >
+                            HTML CSS Pro
+                        </a>
+                        <span style="color: #666; font-weight: normal">
+                            <span
+                                style="font-size: .8rem"
+                            >
+                                <span style="text-decoration: line-through; font-size: 1rem">2.499.000đ</span> 
+                                <span style="color: #f05123; font-weight: 600; font-size: 1.1rem; margin-left: 4px">1.299.000đ</span>
+                            </span>
+                        </span>
+                        <div class="crowPro">
+                            <img src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg" alt="crowPro"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 card border-0" >
+                    <a
+                        href="#"
+                        class="home-courses-thumbnail"
+                    >
+                        <img
+                            style="border-radius: 16px"
+                            class="card-img-top"
+                            src="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
+                            alt="javaScriptPro"
+                        />
+                    </a>
+                    <div
+                        style="padding-left: 0; padding-top: 8px; font-weight: 600"
+                        class="card-body"
+                    >
+                        <a
+                            href="#"
+                            style="text-decoration: none; margin-bottom: 4px"
+                            class="card-text"
+                        >
+                            JavaScript Pro
+                        </a>
+                        <span style="color: #666; font-weight: normal">
+                            <span
+                                style="font-size: .8rem"
+                            >
+                                {{!-- <span style="text-decoration: line-through; font-size: 1rem">2.499.000đ</span> 
+                                <span style="color: #f05123; font-weight: 600; font-size: 1.1rem; margin-left: 4px">1.299.000đ</span> --}}
+                            </span>
+                        </span>
+                        <div class="crowPro">
+                            <img src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg" alt="crowPro">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 card border-0" >
+                    <a
+                        href="#"
+                        class="home-courses-thumbnail"
+                    >
+                        <img
+                            style="border-radius: 16px"
+                            class="card-img-top"
+                            src="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
+                            alt="reactJSPro"
+                        />
+                    </a>
+                    <div
+                        style="padding-left: 0; padding-top: 8px; font-weight: 600"
+                        class="card-body"
+                    >
+                        <a
+                            href="#"
+                            style="text-decoration: none; margin-bottom: 4px"
+                            class="card-text"
+                        >
+                            ReactJS Pro
+                        </a>
+                        <span style="color: #666; font-weight: normal">
+                            {{!-- <span
+                                style="font-size: .8rem"
+                            >
+                                <span style="text-decoration: line-through; font-size: 1rem">2.499.000đ</span> 
+                                <span style="color: #f05123; font-weight: 600; font-size: 1.1rem; margin-left: 4px">1.299.000đ</span>
+                            </span> --}}
+                        </span>
+                        <div class="crowPro">
+                            <img src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg" alt="crowPro">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="mt-4 ms-4">
             <h1>
                 <span style="font-size: 1.6rem; font-weight: 1000">

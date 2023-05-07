@@ -1,26 +1,63 @@
-<div class="col-lg-10 mt-4">
-    <h2 class="mb-4">Cài đặt</h2>
-    <h3>Thông tin cá nhân</h3>
-    <hr>
-    <div class="d-flex">
-        <h5>Username:</h5>
-        <p class="ms-2">{{username}}</p>
+{{#with data}}
+    <div class="profile-banner">
+        <div class="profile_user">
+            <div class="profile_user-avatar">
+                <img
+                {{#if avatar}}
+                src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                {{else}}
+                src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                {{/if}}
+                alt="avatar-user"
+                class=""
+            />
+            </div>
+            <div class="profile_user-name">
+                {{username}}
+            </div>
+        </div>
     </div>
-    <div class="d-flex">
-        <h5>Avatar:</h5>
-        <img
-            {{#if avatar}}
-            src="https://yt3.ggpht.com/ytc/{{avatar}}"
-            {{else}}
-            src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
-            {{/if}}
-            alt="avatar-user"
-            class="avatar-user ms-2"
-        />
+    <div class="row">
+        <div class="col-lg-10 mt-4">
+            <h2 class="d-flex flex-start gap-3">
+                <p>Thông tin cá nhân</p>
+                <a href="/manage/edit?slug={{_id}}" style="color: #ff6957">
+                    <i class="bi bi-pen"></i>
+                </a>
+            </h2>
+            <hr>
+            <div class="d-flex align-items-center">
+                <h5>Avatar:</h5>
+                <img
+                    {{#if avatar}}
+                    src="https://yt3.ggpht.com/ytc/{{avatar}}"
+                    {{else}}
+                    src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                    {{/if}}
+                    alt="avatar-user"
+                    class="avatar-user ms-2"
+                />
+            </div>
+            <div>
+                <h5 class="d-flex">
+                    <p>Username:</p>
+                    <p style="color: #666" class="ms-2">{{username}}</p>
+                </h5>
+            </div>
+            <div >
+                <h5 class="d-flex align-items-center gap-4">
+                    <p>Password:</p>
+                    <p style="color: #666">************</p>
+                </h5>
+            </div>
+            <div>
+                <h5 class="d-flex">
+                    <p>Email:</p>
+                    <p style="color: #666" class="ms-2">{{email}}</p>
+                </h5>
+            </div>
+        </div>
+        <div class="col-lg-2">
+        </div>
     </div>
-    <div class="d-flex align-items-center">
-        <h5>Password:</h5>
-        <button class="btn btn-primary ms-2">Đổi mật khẩu</button>
-    </div>
-</div>
-<div class="col-lg-2"></div>
+{{/with}}

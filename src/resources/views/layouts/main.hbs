@@ -14,31 +14,35 @@
     <title>MeTub - học lập trình để đi làm! | Học lập trình online</title>
 </head>
 <body>
+    <div id="animLoader" class="loader">
+        <section>
+            <span class="loader-content">
+            </span>
+        </section>
+    </div>
     {{! "Parameter" use data from "username" to render data. Which template have header }}
     {{! In this case, data get from res.locals.username }}
     {{> header parameter=username avatar=avatar}}
     <div class="container body">
-        {{!-- <div id="chatBox" class="hide">
+        <div id="chatBox" class="hide">
             <div id="box-header" class="chatBox__header d-flex justify-content-between">
                 <span class="chatBox__header-content">Tán gẫu</span>
                 <i class="bi bi-dash-lg chatBox__header-icon"></i>
             </div>
-            <div class="chatBox__content">
-                <div class="wrapper-content">
-                    <p class="user-name">
-                        Administrators
-                    </p>
-                    <p class="message">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente deleniti id blanditiis eos corporis nostrum! Tenetur vero id ipsa ipsam quos sed explicabo nemo omnis! Inventore a molestias doloribus neque.
-                    </p>
-                </div>
+            <div id="chatBoxContent" class="chatBox__content">
+                <span style="display: none" id="chatBoxUsername">{{username}}</span>
+                {{!-- Append child here --}}
             </div>
-            <div class="chatBox__input">
-                <input type="text" placeholder="Aa">
-                <span><i class="bi bi-send-fill"></i></span>
-            </div>
+            <form id="formMessage" method="POST" class="chatBox__input">
+                <input id="inputMessage" type="text" placeholder="Aa" autocomplete="off">
+                <button type="submit"><i class="bi bi-send-fill"></i></button>
+            </form>
         </div>
-        <div id="chat"><i class="bi bi-messenger"></i></div> --}}
+        <div id="chat"><i class="bi bi-messenger">
+            <span id="notifyMessages">
+                <span>0</span>
+            </span>
+        </i></div>
         <div id="gotop"><i class="bi bi-arrow-up-square"></i></div>
         {{{body}}}
     </div>
@@ -51,6 +55,7 @@
     const chat = document.querySelector('#chat')
     const chatBox = document.querySelector('#chatBox')
     const boxHeader = document.querySelector('#box-header')
+
     window.addEventListener('scroll', (e) => {
         if(window.scrollY > 200) {
             goTop.style.display = 'block'
@@ -69,6 +74,63 @@
     goTop.onclick = () => {
         window.scrollTo(0, 0)
     }
+</script>
+{{!-- SOCKET IO --}}
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var loader = document.getElementById('animLoader')
+    addEventListener('beforeunload', (event) => {
+        loader.setAttribute('style','opacity: 1')
+    })
+    window.addEventListener('DOMContentLoaded', (event) => {
+        loader.setAttribute('style','opacity: 0')
+    })
+    addEventListener('DOMContentLoaded', (event) => {
+    var socket = io();
+
+    var formMessage = document.getElementById('formMessage');
+    var inputMessage = document.getElementById('inputMessage');
+    var chatBoxContent = document.querySelector('#chatBoxContent');
+    var chatBoxUsername = document.querySelector('#chatBoxUsername');
+    var notifyMessages = document.querySelector('#notifyMessages span')
+    if(chatBoxUsername.innerText == 'Lehungtin11') chatBoxUsername.innerText = 'Administrators'
+    
+
+        formMessage.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (inputMessage.value) {
+                socket.emit('chat message', inputMessage.value);
+                socket.emit('notify count', chatBoxContent.children.length);
+                inputMessage.value = '';
+                chatBoxContent.scrollTo(0,chatBoxContent.scrollHeight)
+            }
+        });
+
+        socket.on('notify count', (msg) => {
+            notifyMessages.innerText=msg
+            if(parseInt(notifyMessages.innerText)>99) notifyMessages.innerText = '+99'
+        })
+
+        socket.on('chat message', (msg) => {
+            const timeElapsed = Date.now();
+            const today = new Date(timeElapsed);
+            var div = document.createElement('div')
+            div.classList.add('wrapper-content')
+            var p = document.createElement('p')
+            p.classList.add('user-name')
+            p.innerText = chatBoxUsername.innerText
+            var p2 = document.createElement('p')
+            p2.classList.add('message')
+            p2.innerText = msg
+            var p3 = document.createElement('p')
+            p3.classList.add('chatTime')
+            p3.innerText = today.toDateString()
+            div.appendChild(p)
+            p2.appendChild(p3)
+            div.appendChild(p2)
+            chatBoxContent.appendChild(div)
+        })
+    });
 </script>
 </body>
 </html>

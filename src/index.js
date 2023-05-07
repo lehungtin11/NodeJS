@@ -10,10 +10,21 @@ const hbs = require('express-handlebars');
 const path = require('path');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv');
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 const route = require('./routes')
 const db = require('./config/db');
 
+// IO config
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
+    socket.on('notify count', (msg) => {
+        io.emit('notify count', msg);
+    })
+});
 
 // ENV config
 dotenv.config();

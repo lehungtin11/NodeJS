@@ -1,0 +1,344 @@
+<form
+    method="POST"
+    action="/courses/me/deletemany?_method=DELETE"
+    id="function-form"
+>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input
+                        class="form-check-input chkBoxAll"
+                        type="checkbox"
+                    />
+                </th>
+                <th scope="col">#</th>
+                <th scope="col">
+                    Avatar
+                </th>
+                <th scope="col">
+                    Username
+                    <a href="?_sort">
+                        <i class="bi bi-sort-alpha-down"></i>
+                    </a>
+                </th>
+                <th scope="col">
+                    Password
+                </th>
+                <th scope="col">
+                    Email
+                </th>
+                <th scope="col">
+                    Khóa học đã kích hoạt
+                </th>
+                <th></th>
+            </tr>   
+        </thead>
+        {{#each data }}
+        <tbody>
+            <tr>
+                <td>
+                    <input
+                        class="form-check-input chkBoxItem"
+                        name="deleteItem"
+                        value={{this._id}}
+                        type="checkbox"
+                    />
+                    <input class="hiddenPassword" type="hidden" value="{{this.password}}">
+                </td>
+                <th scope="row">
+                    {{sum @index 1}}
+                </th>
+                <td>
+                    <img
+                        {{#if avatar}}
+                        src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
+                        {{else}}
+                        src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                        {{/if}}
+                        alt="avatar-user"
+                        class="avatar-user-2"
+                    />
+                </td>
+                <td>
+                    <a style="text-decoration: none" href="/manage/edit?slug={{this._id}}&admin=true" class="d-flex flex-column">
+                        {{this.username}}
+                    </a>
+                </td>
+                <td style="cursor: pointer" class="passwordField">
+                    <p>Click để xem</p>
+                </td>
+                <td>
+                    {{this.email}}
+                </td>
+                <td>
+                    {{#if this.activedCourses}}
+                    HTML &amp; CSS Pro
+                    {{else}}
+                    <span>Chưa kích hoạt khóa học nào</span>
+                    {{/if}}
+                </td>
+                <td>
+                    <a
+                        href=""
+                        class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-id="{{this._id}}"
+                        data-bs-target="#delete-modal"
+                    >
+                        <i class="bi bi-lock"></i>
+                    </a>
+                    <a
+                        href="/manage/delete?slug={{this._id}}"
+                        class="btn btn-warning"
+                    >
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        {{else}}
+        <td colspan="6" class="text-center">
+            Không có người dùng nào.
+            <a href="/courses/create">
+                Tạo mới
+            </a>
+        </td>
+        {{/each}}
+        <div class="row mt-4 text-center ">
+            <h2>
+                <i class="bi bi-person-fill"></i>
+                QUẢN LÝ NGƯỜI DÙNG
+            </h2>
+        </div>
+        <div class="row mt-4 justify-content-between">
+            <div class="col">
+                {{!-- <a
+                    href="/register"
+                    class="btn btn-secondary"
+                >
+                    <i class="bi bi-plus-square"></i>
+                    Tạo tài khoản mới
+                </a> --}}
+            </div>
+            <div class="col-lg-2" style="padding-left: 80px">
+                <a
+                    href="/manage/black-list"
+                    class="btn btn-secondary"
+                >
+                    <i class="bi bi-lock-fill"></i>
+                    ({{deleteCount}})
+                </a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+            <div class="d-flex mb-4 justify-content-center align-items-center">
+                <select
+                    class="form-select-s me-2"
+                    name="type"
+                    required
+                >
+                    <option value="">
+                        -- Tuỳ chọn --
+                    </option>
+                    <option value="delete">
+                        Xóa
+                    </option>
+                </select>
+                <button
+                    id="submit-form"
+                    class="btn btn-primary"
+                    type="submit"
+                    disabled
+                >
+                    Thực hiện
+                </button>
+            </div>
+            {{!-- Pagination --}}
+            <nav aria-label="Page navigation example d-flex justify-content-center align-items-center">
+                <ul class="pagination justify-content-center">
+                    {{#if (handlePagination (sum currentPage -1) totalPage)}}
+                    <li class="page-item">
+                        <a
+                            href="/courses/me/manage?page=1"
+                            class="page-link"
+                        >Trang đầu</a>
+                    </li>
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="/courses/me/manage?page={{handlePagination (sum currentPage -1) totalPage}}"
+                        >
+                            {{handlePagination (sum currentPage -1) totalPage}}
+                        </a>
+                    </li>
+                    {{else}}
+                    <li class="page-item disabled">
+                        <a
+                            class="page-link"
+                            href="/courses/me/manage"
+                        >Trang đầu</a>
+                    </li>
+                    {{/if}}
+                    <li class="page-item active">
+                        <a
+                            class="page-link"
+                            href="#"
+                        >
+                            {{currentPage
+                        }}</a>
+                    </li>
+                    {{#if (handlePagination (sum currentPage 1) totalPage)}}
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="/courses/me/manage?page={{handlePagination (sum currentPage 1) totalPage}}"
+                        >
+                            {{handlePagination (sum currentPage 1) totalPage}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="/courses/me/manage?page={{totalPage}}"
+                        >Trang cuối</a>
+                    </li>
+                    {{else}}
+                    <li class="page-item disabled">
+                        <a
+                            class="page-link"
+                            href="/courses/me/manage"
+                        >Trang cuối</a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </table>
+</form>
+      
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="delete-modal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5
+                    style="color:#dc3545"
+                    class="modal-title"
+                    id="exampleModalLabel"
+                >
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                    Khóa người dùng
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                Hành động này sẽ tạm thời chuyển người dùng vào danh sách khóa. Bạn chắc chắn muốn khóa? 
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Đóng
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-warning"
+                    id="confirm-delete"
+                >
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Hidden form --}}
+    <form method="POST" id="delete-form"></form>
+
+<script>
+    addEventListener('DOMContentLoaded', () => {
+        let btnId;
+        const btnConfirm = document.getElementById('confirm-delete')
+        const btnSubmitForm = document.getElementById('submit-form')
+        const form = document.forms['delete-form']
+        const functionForm = document.forms['function-form']
+        const chkBoxItem = document.querySelectorAll('input[class="form-check-input chkBoxItem"]')
+        const chkBoxAll = document.querySelector('input[class="form-check-input chkBoxAll"]')
+        const checkedItem = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
+        const modal = document.getElementById('delete-modal')
+        const passwordField = document.querySelectorAll('.passwordField')
+        const hiddenPassword = document.querySelectorAll('.hiddenPassword')
+
+        // Hide/show password
+        passwordField.forEach((e, i) => {
+            e.addEventListener('click', (e) => {
+                if (e.target.innerText == hiddenPassword[i].value) {
+                    e.target.innerText = 'Click để xem'
+                } else {
+                    e.target.innerText = hiddenPassword[i].value
+                }
+            })
+        })
+
+        //{{!-- handle checkbox all --}}
+        chkBoxAll.onchange = (e) => {
+            const itemLength = chkBoxItem.length;
+            if(itemLength === 0) {
+                e.target.checked = false;
+            }
+            if(e.target.checked) {
+                for(var i = 0; i < itemLength; i++) {
+                    chkBoxItem[i].checked = true
+                } 
+                btnSubmitForm.removeAttribute('disabled')
+            } else {
+                for(var i = 0; i < itemLength; i++) {
+                        chkBoxItem[i].checked = false
+                    }
+                btnSubmitForm.setAttribute('disabled','disabled')
+            }
+        }
+
+        //{{!-- handle checkbox item --}}
+        chkBoxItem.forEach(e=>{
+            e.addEventListener('change', (e) => {
+                const checked = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
+                if(checked.length == chkBoxItem.length) {
+                    chkBoxAll.checked=true;
+                } else {
+                    chkBoxAll.checked=false
+                }
+                if(!e.target.checked && !checked.length > 0) {
+                    btnSubmitForm.setAttribute('disabled','disabled')
+                } else {
+                    btnSubmitForm.removeAttribute('disabled')
+                }
+            })
+        })
+
+        //{{!-- Open modal --}}
+        modal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+            btnId = button.getAttribute('data-id')
+        })
+
+        //{{!-- Confirm delete --}}
+        btnConfirm.addEventListener('click', () => {
+            form.action=`/manage/ban/${btnId}?_method=DELETE`
+            form.submit()
+        })
+    });
+</script>

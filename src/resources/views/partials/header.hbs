@@ -8,7 +8,7 @@
                 alt="logo"
             />
             <span class="company-name">
-                MeTub
+                MeTube
             </span>
             <span>
                 | Học Lập Trình
@@ -105,6 +105,13 @@
                             <hr class="dropdown-divider">
                         </li>
                         {{#if (isAdmin username)}}
+                        <li>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="/manage/user"
+                            >Quản lý người dùng</a>
+                        </li>
                         <li>
                             <a
                                 class="nav-link"

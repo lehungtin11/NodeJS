@@ -1,4 +1,47 @@
-<div class="footer-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800&display=swap" rel="stylesheet">
+    <title>MeTub - học lập trình để đi làm! | Học lập trình online</title>
+</head>
+<body class="payment_body">
+    <div style="background-color: transparent" id="myHeader" class="navbar navbar-expand-lg">
+        <div class="d-flex align-items-center mx-4">
+            {{!-- Logo & Title --}}
+            <a class="navbar-brand" href="/">
+                <img
+                    style="height: 38px; width: 38px"
+                    src="/img/logo.png"
+                    alt="logo"
+                />
+                <span class="company-name">
+                    MeTube
+                </span>
+            </a>
+                <span style="font-weight: 600">
+                    | Học Lập Trình
+                </span>
+        </div>
+    </div>
+    <div class="container body">
+        <div class="ScrollToTop_arrow-up">
+            <div id="payment_gotop">
+                <img src="https://fullstack.edu.vn/static/media/arrow-up.a9c398e99328f13333218fc8d6a5911f.svg" alt="" style="color: #fff; width: 2rem;">
+            </div>
+        </div>
+        {{{body}}}
+    </div>
+    {{!-- Footer --}}
+    <div style="margin-top: 142px;background-color: transparent; border-top: 2px solid #333c6d" class="footer-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -116,3 +159,23 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<script>
+    //---------- Go Top button
+addEventListener('DOMContentLoaded', (event) => {
+    const goTop = document.querySelector('#payment_gotop')
+
+    window.addEventListener('scroll', (e) => {
+        if(window.scrollY > 800) {
+            goTop.style.display = 'flex'
+        } else{
+            goTop.style.display = 'none'
+        }
+    })
+
+    goTop.onclick = () => {
+        window.scrollTo(0, 0)
+    }
+});
+</script>

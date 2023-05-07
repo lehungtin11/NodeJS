@@ -15,7 +15,7 @@ body {
   background-color: #FFF;
   height: 70%;
   width: 25%;
-  z-index: 3;
+  z-index: 99;
   font-size: 2.6rem;
   right: 1%;
   bottom: 5%;
@@ -37,12 +37,13 @@ body {
   font-size: 1.2rem; }
 
 .chatBox__content {
-  height: 78%;
+  height: 75%;
   overflow: scroll;
   margin-top: 12px; }
 
 .user-name {
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 600;
   margin: 0 0 0 12px; }
 
 .message {
@@ -51,6 +52,12 @@ body {
   font-size: 15px;
   border-radius: 5px;
   background-color: #f0f2f5; }
+
+.chatTime {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px; }
 
 .chatBox__input {
   display: flex;
@@ -67,10 +74,13 @@ body {
     height: 40px;
     width: 100%;
     font-size: 14px; }
-  .chatBox__input span {
+  .chatBox__input button {
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
     margin: 0 2px 0 8px;
     cursor: pointer; }
   .chatBox__input i {
@@ -94,6 +104,23 @@ body {
     opacity: 1;
     color: #0d6efd;
     transition: all .3s ease 0s; }
+  #chat #notifyMessages {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: red;
+    padding: 4px;
+    border-radius: 999px;
+    right: -12px;
+    top: 0;
+    height: 24px;
+    width: 24px; }
+    #chat #notifyMessages span {
+      color: #fff;
+      margin-top: 2px;
+      margin-right: 3px; }
 
 #gotop {
   position: fixed;
@@ -461,11 +488,14 @@ body {
   border-radius: 16px;
   min-height: 270px; }
   .carousel-inner .carousel-item {
-    background: linear-gradient(to right, #2877fa, #6717cd);
+    --cta-hover-color: #6828fa;
+    background: linear-gradient(to right, #6828fa, #ffbaa4);
     height: 270px; }
     .carousel-inner .carousel-item:nth-child(2) {
-      background: linear-gradient(to right, #c7e519, #82b70d); }
+      background: linear-gradient(to right, #2877fa, #6717cd); }
     .carousel-inner .carousel-item:nth-child(3) {
+      background: linear-gradient(to right, #c7e519, #82b70d); }
+    .carousel-inner .carousel-item:nth-child(4) {
       background: linear-gradient(to right, #19b5e3, #456df1); }
     .carousel-inner .carousel-item img {
       object-fit: cover;
@@ -483,6 +513,10 @@ body {
   color: currentColor; }
   .link-text:hover {
     color: currentColor; }
+  .link-text span img {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 24px; }
 
 .slide-show__button {
   text-decoration: none;
@@ -592,6 +626,16 @@ body {
     top: 50%;
     transition: all .3s ease 0s; }
 
+.crowPro {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  left: 24px;
+  padding: 0px 5px 4px 5px;
+  pointer-events: none;
+  position: absolute;
+  top: 12px;
+  width: 26px; }
+
 .footer-wrapper {
   background-color: #181821;
   color: #a9b3bb;
@@ -630,6 +674,426 @@ body {
     .footer-social .bi:hover {
       opacity: .9; }
 
+#payment_gotop {
+  align-items: center;
+  background-color: #303133;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px black, 0 6px 6px black;
+  display: none;
+  height: 60px;
+  justify-content: center;
+  width: 60px; }
+
+.ScrollToTop_arrow-up {
+  cursor: pointer;
+  align-items: center;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 50px;
+  transition: opacity .18s;
+  z-index: 222; }
+
+.payment_body {
+  background-image: url(https://fullstack.edu.vn/static/media/payment-bg.dd1049bd524ec6121c88.png);
+  align-items: center;
+  background-color: #191d1e;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative; }
+  .payment_body ::selection {
+    background-color: #898fffa6 !important; }
+
+.payment_wrapper {
+  color: #dae4f0;
+  gap: 40px;
+  margin-top: 64px;
+  max-width: 100vw; }
+  .payment_wrapper strong {
+    color: #5ebbff; }
+
+.paymentContent-left {
+  flex: 1 1; }
+
+.paymentContent_description {
+  color: #dae4f0;
+  font-weight: 400;
+  line-height: 24px; }
+
+.paymentContent_price {
+  align-items: center;
+  background: #202425;
+  border-radius: 8px;
+  display: flex;
+  font-size: 1.7rem;
+  gap: 16px;
+  justify-content: flex-end;
+  line-height: 40px;
+  margin-top: 32px;
+  padding: 8px 24px; }
+
+.paymentContent_price-title {
+  color: #a2adbd;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: right; }
+
+.paymentContent_price-wrapper {
+  display: flex;
+  gap: 16px; }
+  .paymentContent_price-wrapper del {
+    color: #a2adbd;
+    font-size: 1.7rem;
+    font-weight: 400; }
+  .paymentContent_price-wrapper span {
+    color: #52eeee;
+    font-weight: 600; }
+
+.paymentContent_title {
+  color: #dae4f0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 40px;
+  margin: 32px 0 0; }
+
+.paymentContent_bank-list {
+  display: flex;
+  gap: 40px;
+  margin-top: 16px; }
+
+.paymentContent_bank-item {
+  background: #272a31;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 56px;
+  padding: 12px 24px; }
+
+.paymentContent_active {
+  border: 2px solid #52eeee; }
+
+.paymentContent_bank-detail {
+  display: flex;
+  margin-top: 16px; }
+
+.paymentContent_qr-code {
+  background-color: #fff;
+  border-radius: 8px;
+  height: 176px;
+  margin-right: 24px;
+  overflow: hidden;
+  padding: 5px;
+  width: 176px; }
+  .paymentContent_qr-code img {
+    display: inline-block;
+    width: 100%; }
+
+.paymentContent-instruction {
+  color: #dae4f0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 0;
+  padding-left: 16px; }
+  .paymentContent-instruction span {
+    color: #fa8c16;
+    font-weight: 600; }
+
+.paymentContent_bank-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px; }
+
+.paymentContent_row {
+  display: flex;
+  gap: 8px; }
+
+.paymentContent_bank-info-item {
+  background-color: #202425;
+  border-radius: 8px;
+  flex: 1 1;
+  padding: 8px 16px;
+  position: relative; }
+
+.paymentContent_label {
+  color: #a2adbd;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 8px; }
+
+.paymentContent_content {
+  align-items: center;
+  color: #dae4f0;
+  display: flex;
+  font-size: 1.3rem;
+  font-weight: 600;
+  justify-content: space-between;
+  line-height: 24px; }
+  .paymentContent_content span {
+    color: #fa8c16;
+    font-weight: 600; }
+
+.paymentContent_copy-icon {
+  cursor: pointer;
+  margin-left: 8px; }
+
+.paymentContent_notification {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 16px; }
+  .paymentContent_notification ul {
+    margin: 0;
+    padding-left: 12px; }
+  .paymentContent_notification li {
+    color: #a2adbd;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    word-break: break-all; }
+  .paymentContent_notification .paymentContent_icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    width: 54px; }
+
+.paymentContent-right {
+  width: 350px;
+  color: #fff; }
+
+.paymentContent_benefit {
+  background: linear-gradient(90deg, #5ebbff, #a174ff);
+  border-radius: 8px;
+  padding: 4px 1px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 100px;
+  width: 100%; }
+
+.paymentContent_benefit-wrapper {
+  background: #272a31;
+  border-radius: 6px;
+  padding: 16px; }
+
+.paymentContent_benefit-title {
+  color: #dae4f0;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 40px;
+  margin: 0 0 32px;
+  text-align: center; }
+
+.paymentContent_benefit-item {
+  align-items: flex-start;
+  color: #dae4f0;
+  display: flex;
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 16px; }
+
+.paymentContent_icon {
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
+  padding-top: 6px;
+  width: 20px; }
+
+.payment_title {
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 120%;
+  margin-top: 18px;
+  text-align: center; }
+
+.willLearn_wrapper {
+  margin-top: 100px;
+  align-items: center;
+  display: flex;
+  flex-direction: column; }
+
+.willLearn_title {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 120%;
+  max-width: 441px;
+  text-align: center;
+  margin: 0; }
+
+.willLearn_content {
+  margin-top: 54px;
+  max-width: 90vw;
+  width: 980px; }
+  .willLearn_content li {
+    color: #dae4f0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 20px; }
+
+.module-row {
+  margin-left: -12px;
+  margin-right: -12px;
+  display: flex;
+  flex-wrap: wrap; }
+
+.module-col {
+  width: 25%; }
+
+.comingSoonCourses_wrapper {
+  display: flex;
+  margin-top: 100px;
+  max-width: 100vw;
+  width: 1024px; }
+
+.comingSoonCourses_left {
+  flex: 1 1; }
+
+.comingSoonCourses_right {
+  align-items: flex-end;
+  display: flex;
+  position: relative;
+  width: 300px; }
+  .comingSoonCourses_right img {
+    bottom: 0;
+    left: -25px;
+    position: absolute; }
+
+.comingSoonCourses_title {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 140%;
+  margin-bottom: 10px; }
+
+.comingSoonCourses_description {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 24px; }
+  .comingSoonCourses_description ol {
+    margin: 28px 0;
+    padding-left: 24px; }
+
+.comingSoonCourses_courses-list-wrapper {
+  display: flex;
+  gap: 16px; }
+
+.comingSoonCourses_course-item {
+  height: 100%;
+  margin-bottom: 16px;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(96, 95, 95, 0.5);
+  background: linear-gradient(96.6deg, rgba(0, 115, 121, 0.112) 11.23%, rgba(0, 95, 100, 0) 115.9%); }
+  .comingSoonCourses_course-item img {
+    margin-bottom: 32px; }
+
+.comingSoonCourses_course-title {
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 120%;
+  margin-bottom: 16px; }
+
+.comingSoonCourses_time {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0; }
+
+.profile-banner {
+  background-image: url("https://fullstack.edu.vn/static/media/cover-profile.3fb9fed576da4b28386a.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin-top: -66px;
+  margin-bottom: 100px;
+  padding-top: 28%;
+  position: relative;
+  width: 100%; }
+
+.profile_user {
+  align-items: flex-end;
+  bottom: -70px;
+  display: flex;
+  left: 40px;
+  position: absolute;
+  z-index: 1; }
+
+.profile_user-avatar {
+  background-color: #fff;
+  border-radius: 50%;
+  height: 148px;
+  padding: 4px;
+  width: 148px; }
+  .profile_user-avatar img {
+    border-radius: 50%;
+    height: 148px;
+    object-fit: cover;
+    width: 100%; }
+
+.profile_user-name {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-left: 16px;
+  text-align: center; }
+
 @keyframes swipeDown {
   from {
     top: 40%; } }
+
+.loader {
+  margin: 0 auto;
+  width: 60px;
+  height: 50px;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  z-index: 100; }
+
+.loader-content {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative; }
+
+.loader-content::after, .loader-content::before {
+  content: '';
+  width: 48px;
+  height: 48px;
+  border: 2px solid #333;
+  padding: 40px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  animation: rotationBreak 3s ease-in-out infinite alternate; }
+
+.loader-content::after {
+  border-color: #FF3D00;
+  animation-direction: alternate-reverse; }
+
+@keyframes rotationBreak {
+  0% {
+    transform: rotate(0); }
+  25% {
+    transform: rotate(90deg); }
+  50% {
+    transform: rotate(180deg); }
+  75% {
+    transform: rotate(270deg); }
+  100% {
+    transform: rotate(360deg); } }

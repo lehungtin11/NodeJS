@@ -1,0 +1,316 @@
+<form
+    method="POST"
+    id="function-form"
+    action="/courses/me/handletrash?_method=GET"
+>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input
+                        class="form-check-input chkBoxAll"
+                        type="checkbox"
+                    />
+                </th>
+                <th scope="col">#</th>
+                <th scope="col">
+                    Avatar
+                </th>
+                <th scope="col">
+                    Username
+                </th>
+                <th scope="col">
+                    Password
+                </th>
+                <th scope="col">
+                    Email
+                </th>
+                <th scope="col">
+                    Thời gian xoá
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        {{#each data }}
+        <tbody>
+            <tr>
+                <td>
+                    <input
+                        class="form-check-input chkBoxItem"
+                        name="deleteItem"
+                        value={{this._id}}
+                        type="checkbox"
+                    />
+                    <input class="hiddenPassword" type="hidden" value="{{this.password}}">
+                </td>
+                <th scope="row">
+                    {{sum @index 1}}
+                </th>
+                <td>
+                    <img
+                        {{#if avatar}}
+                        src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
+                        {{else}}
+                        src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                        {{/if}}
+                        alt="avatar-user"
+                        class="avatar-user-2"
+                    />
+                </td>
+                <td>
+                    <a style="text-decoration: none" href="/manage/edit?slug={{this._id}}&admin=true" class="d-flex flex-column">
+                        {{this.username}}
+                    </a>
+                </td>
+                <td style="cursor: pointer" class="passwordField">
+                    <p>Click để xem</p>
+                </td>
+                <td>
+                    {{this.email}}
+                </td>
+                <td>
+                    {{this.deletedAt}}
+                </td>
+                <td>
+                    <a
+                        style="color: #fff"
+                        href="/group-courses/restore?slug={{this.name}}"
+                        class="btn btn-info"
+                    ><i class="bi bi-arrow-counterclockwise"></i></a>
+                    <a
+                        href=""
+                        class="btn btn-warning"
+                        data-bs-toggle="modal"
+                        data-id="{{this._id}}"
+                        data-bs-target="#delete-modal"
+                    ><i class="bi bi-x-lg"></i></a>
+                </td>
+            </tr>
+        </tbody>
+        {{else}}
+        <td colspan="6" class="text-center">
+            Thùng rác trống!
+        </td>
+        {{/each}}
+        <div class="row mt-4 mb-4 text-center">
+            <h2>
+                <i class="bi bi-lock-fill"></i>
+                BLACK LIST
+            </h2>
+        </div>
+        {{!-- Back Button --}}
+        <div>
+            <a href="/manage/user" class="btn btn-primary">
+                <i class="bi bi-arrow-left-circle"></i>
+                Trở về
+            </a>
+        </div>
+        {{!-- Option action --}}
+        <div class="d-flex mb-4 justify-content-center align-items-center">
+            <select
+                class="form-select-s me-2"
+                name="type"
+                required
+            >
+                <option value="">
+                    -- Lựa chọn --
+                </option>
+                <option value="restore">
+                    Khôi phục
+                </option>
+                <option value="trulyDelete">
+                    Xoá vĩnh viễn
+                </option>
+            </select>
+            <button
+                id="submit-form"
+                class="btn btn-primary"
+                type="submit"
+                disabled
+            >
+                Thực hiện
+            </button>
+        </div>
+        {{!-- Pagination --}}
+        <nav aria-label="Page navigation example d-flex justify-content-center align-items-center">
+            <ul class="pagination justify-content-center">
+                {{#if (handlePagination (sum currentPage -1) totalPage)}}
+                <li class="page-item">
+                    <a
+                        href="/courses/me/trash?page=1"
+                        class="page-link"
+                    >Trang đầu</a>
+                </li>
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="/courses/me/trash?page={{handlePagination (sum currentPage -1) totalPage}}"
+                    >
+                        {{handlePagination (sum currentPage -1) totalPage}}
+                    </a>
+                </li>
+                {{else}}
+                <li class="page-item disabled">
+                    <a
+                        class="page-link"
+                        href="/courses/me/trash"
+                    >Trang đầu</a>
+                </li>
+                {{/if}}
+                <li class="page-item active">
+                    <a class="page-link" href="#">
+                        {{currentPage}}
+                    </a>
+                </li>
+                {{#if (handlePagination (sum currentPage 1) totalPage)}}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="/courses/me/trash?page={{handlePagination (sum currentPage 1) totalPage}}"
+                    >
+                        {{handlePagination (sum currentPage 1) totalPage}}
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="/courses/me/trash?page={{totalPage}}"
+                    >Trang cuối</a>
+                </li>
+                {{else}}
+                <li class="page-item disabled">
+                    <a
+                        class="page-link"
+                        href="/courses/me/trash"
+                    >Trang cuối</a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
+    </table>
+</form>
+
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="delete-modal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5
+                    class="modal-title"
+                    id="exampleModalLabel"
+                >
+                    Xoá vĩnh viễn tài khoản !
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                Hành động này không thể khôi phục, bạn chắc chắn muốn xoá?
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Đóng
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-warning"
+                    id="confirm-delete"
+                >
+                    Xác nhận xoá vĩnh viễn
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Hidden form --}}
+<form method="POST" id="delete-form"></form>
+
+<script>
+    addEventListener('DOMContentLoaded', () => {
+        let btnId;
+        const btnConfirm = document.getElementById('confirm-delete')
+        const btnSubmitForm = document.getElementById('submit-form')
+        const form = document.forms['delete-form']
+        const functionForm = document.forms['function-form']
+        const chkBoxItem = document.querySelectorAll('input[class="form-check-input chkBoxItem"]')
+        const chkBoxAll = document.querySelector('input[class="form-check-input chkBoxAll"]')
+        const checkedItem = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
+        const modal = document.getElementById('delete-modal')
+        const passwordField = document.querySelectorAll('.passwordField')
+        const hiddenPassword = document.querySelectorAll('.hiddenPassword')
+
+        // Hide/show password
+        passwordField.forEach((e, i) => {
+            e.addEventListener('click', (e) => {
+                if (e.target.innerText == hiddenPassword[i].value) {
+                    e.target.innerText = 'Click để xem'
+                } else {
+                    e.target.innerText = hiddenPassword[i].value
+                }
+            })
+        })
+
+        //{{!-- handle checkbox all --}}
+        chkBoxAll.onchange = (e) => {
+            const itemLength = chkBoxItem.length;
+            if(itemLength === 0) {
+                e.target.checked = false;
+            }
+            if(e.target.checked) {
+                for(var i = 0; i < itemLength; i++) {
+                    chkBoxItem[i].checked = true
+                } 
+                btnSubmitForm.removeAttribute('disabled')
+            } else {
+                for(var i = 0; i < itemLength; i++) {
+                        chkBoxItem[i].checked = false
+                    }
+                btnSubmitForm.setAttribute('disabled','disabled')
+            }
+        }
+
+        //{{!-- handle checkbox item --}}
+        chkBoxItem.forEach(e=>{
+            e.addEventListener('change', (e) => {
+                const checked = document.querySelectorAll('input[class="form-check-input chkBoxItem"]:checked');
+                if(checked.length == chkBoxItem.length) {
+                    chkBoxAll.checked=true;
+                } else {
+                    chkBoxAll.checked=false
+                }
+                if(!e.target.checked && !checked.length > 0) {
+                    btnSubmitForm.setAttribute('disabled','disabled')
+                } else {
+                    btnSubmitForm.removeAttribute('disabled')
+                }
+            })
+        })
+
+        //{{!-- Open modal --}}
+        modal.addEventListener('show.bs.modal', event =>
+        {
+                const button = event.relatedTarget
+                btnId = button.getAttribute('data-id')
+        })
+
+        //{{!-- Confirm delete --}}
+        btnConfirm.addEventListener('click', e => {
+            form.action=`/group-courses/trash-bin/${btnId}?_method=DELETE`
+            form.submit()
+        })
+    });
+</script>

@@ -7,6 +7,8 @@
         action="/register/create"
         class="mt-4"
     >
+        {{!-- Hidden input --}}
+        <input name="activedCourses" type="hidden" value="">
         {{!-- Email input --}}
         <div class="mb-3">
             <label for="email" class="form-label">
@@ -38,6 +40,8 @@
                 id="username"
                 name="username"
                 value="{{preUser}}"
+                min="8"
+                max="30"
             />
             {{!-- Validate 8 min-length username  --}}
             <span id="userHelpBlock" class="hide form-text">

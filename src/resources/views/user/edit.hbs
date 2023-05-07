@@ -1,0 +1,116 @@
+<div class="mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {{#with data}}
+            <form
+                method="POST"
+                action="/manage/update?slug={{_id}}&_method=PUT"
+            >
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        autocomplete="off"
+                        value="{{username}}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        value="{{password}}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">
+                        Email
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="{{email}}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="avatar" class="form-label">
+                        Avatar
+                    </label>
+                    <div class="d-flex">
+                        <img
+                        {{#if avatar}}
+                        src="https://yt3.ggpht.com/ytc/{{this.avatar}}"
+                        {{else}}
+                        src="https://yt3.ggpht.com/ytc/AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj"
+                        {{/if}}
+                        alt="avatar-user"
+                        class="avatar-user-2"
+                    />
+                        <input
+                          type="text"
+                          style="margin-left: 8px; border: none"
+                          class="form-control"
+                          id="avatar"
+                          name="avatar"
+                          value="{{this.avatar}}"
+                        />
+                    </div>
+                </div>
+            {{/with}}
+                {{#if isAdmin}}
+                    <div class="mb-3">
+                        <label for="floatingSelect">
+                            Khóa học đã kích hoạt
+                        </label>
+                        <div class="form-floating">
+                            <div class="input-group mb-3">
+                                <div class="input-group-text">
+                                    <input id="activedCourses" name="activedCourses" class="form-check-input mt-0" type="checkbox" value="1" aria-label="Checkbox for following text input">
+                                </div>
+                                <label type="text" class="form-control" aria-label="Text input with checkbox">
+                                    HTML &amp; CSS Pro
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+                <button type="submit" class="btn btn-dark fw-bold">
+                    <i class="bi bi-pencil-square"></i>
+                    Cập nhật
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    let iptPassword = document.querySelector('#password')
+    let iptUsername = document.querySelector('#username')
+    let formEdit = document.forms[2]
+    let validateError = false;
+
+    iptPassword.addEventListener('change',checkValidate)
+    iptUsername.addEventListener('change',checkValidate)
+    function checkValidate() {
+        if(this.value.length < 6){
+            validateError = true
+            alert(`${this.parentElement.innerText} phải tối thiểu 6 ký tự`)
+        }else(validateError = false)
+    }
+    
+    formEdit.onsubmit = (e) => {
+        if(validateError) {
+            e.preventDefault()
+        }
+    }
+</script>

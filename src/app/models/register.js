@@ -19,6 +19,10 @@ const user = new Schema({
       type: String,
       default: 'AMLnZu-bhMUE7-ouPMCU9jZPH1S_GC3_qa5RwbDX6KapRw=s68-c-k-c0x00ffffff-no-rj',
     },
+    activedCourses: {
+        type: String,
+        default: ''
+    },
   }, {
     timestamps: true
   });
